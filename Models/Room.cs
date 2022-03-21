@@ -13,16 +13,14 @@ namespace HeyHotel.Models
         public int NumberOfRooms { get; set; }
         public int Floor { get; set; }
         public bool IsUsing { get; set; }
-        public DateTime UsingFrom { get; set; }
-        public DateTime UsingUntil { get; set; }
 
         public Hotel Hotel { get; set; }
 
-        List<Transaction> Transactions = new List<Transaction>();
+        List<Order> Orders = new List<Order>();
 
         public Room()
         {
-            this.Transactions = new List<Transaction>();
+            this.Orders = new List<Order>();
         }
     }
 }

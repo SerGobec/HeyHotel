@@ -12,12 +12,14 @@ namespace HeyHotel.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private HotelDbContext context;
+        private HotelDbContext _context;
+        private readonly UsersDbContext _usersContext;
 
-        public HomeController(ILogger<HomeController> logger, HotelDbContext context)
+        public HomeController(ILogger<HomeController> logger, HotelDbContext context, UsersDbContext usersContext)
         {
             _logger = logger;
-            this.context = context;
+            this._context = context;
+            this._usersContext = usersContext;
         }
 
         public IActionResult Index()

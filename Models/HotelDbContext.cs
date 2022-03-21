@@ -9,6 +9,9 @@ namespace HeyHotel.Models
     public class HotelDbContext : DbContext
     {
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+
         public HotelDbContext(DbContextOptions<HotelDbContext> options)
             : base(options)
         {

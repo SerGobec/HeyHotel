@@ -2,6 +2,7 @@ using HeyHotel.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,9 +27,14 @@ namespace HeyHotel
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            // добавляем контекст ApplicationContext в качестве сервиса в приложение
             services.AddDbContext<HotelDbContext>(options =>
                 options.UseSqlServer(connection));
+
+            services.AddDbContext<UsersDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("UsersConnection")));
+
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UsersDbContext>();
+
             services.AddControllersWithViews();
         }
 
@@ -50,6 +56,7 @@ namespace HeyHotel
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
