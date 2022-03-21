@@ -111,3 +111,5 @@ C:\Users\User\source\HeyHotel\HeyHotel\bin\Debug\net5.0\Microsoft.AspNetCore.Cry
 C:\Users\User\source\HeyHotel\HeyHotel\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\User\source\HeyHotel\HeyHotel\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\User\source\HeyHotel\HeyHotel\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\User\source\HeyHotel\HeyHotel\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\User\source\HeyHotel\HeyHotel\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
