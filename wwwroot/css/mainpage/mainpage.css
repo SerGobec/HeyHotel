@@ -52,3 +52,34 @@ main {
 footer {
     background-color: #EBDCB2;
 }
+
+/*----------*/
+
+.AdminLink {
+    transform: rotate(90deg);
+    position: fixed;
+    right: -60px;
+    top: 200px;
+    height: 35px;
+    font-size: 24px;
+    font-family: serif;
+    width: 180px;
+    background-color: red;
+    margin-right: 0px;
+    text-align: center;
+}
+
+.ManagerLink {
+    transform: rotate(90deg);
+    position: fixed;
+    right: -60px;
+    top: 400px;
+    height: 35px;
+    font-size: 24px;
+    font-family: serif;
+    color: aqua;
+    width: 180px;
+    background-color: rebeccapurple;
+    margin-right: 0px;
+    text-align: center;
+}
