@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HeyHotel</title>
+    <link rel="stylesheet" href="~/css/mainpage/mainpage.css" />
+</head>
+<body>
+    <header>
+        <div class="left-part-nav">
+                <ul>
+                    <a asp-action="Index" asp-controller="Home"><li id="MailButton">HeyHotel</li></a>
+                    <a asp-action="Privacy" asp-controller="Home"><li>About</li></a>
+                    <li>Help</li>
+                </ul>
+        </div>
+    </header>
+
+    <div class="conteiner-for-main">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+    </div>
+    
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - HeyHotel - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
