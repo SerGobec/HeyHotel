@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HeyHotel</title>
+    <link rel="stylesheet" href="~/css/mainpage/mainpage.css" />
+</head>
+<body>
+    <header>
+        <div class="left-part-nav">
+            <ul>
+                <li id="MailButton"><a asp-action="Index" asp-controller="Home">HeyHotel</a></li>
+                <li><a asp-action="Privacy" asp-controller="Home">About</a></li>
+                <li>Help</li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="conteiner-for-main">
+        <main role="main" class="pb-3">
+            @RenderBody()
+
+
+        </main>
+
+    </div>
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - HeyHotel - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-controller="Admin" asp-action="Index"><div class="AdminLink">Admin panel</div></a>
+    }
+
+    @if (User.IsInRole("admin") || User.IsInRole("manager"))
+    {
+        <a asp-controller="Manager" asp-action="Index"><div class="ManagerLink">Manager panel</div></a>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
