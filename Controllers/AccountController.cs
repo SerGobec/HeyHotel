@@ -81,11 +81,11 @@ namespace HeyHotel.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

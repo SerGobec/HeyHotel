@@ -1,0 +1,15 @@
+﻿@model IEnumerable<HeyHotel.Models.User>
+
+<table>
+   
+    @foreach(var user in Model)
+     {
+        <tr>
+            <td>@user.UserName</td>
+            <td><a asp-action="EditUser" asp-controller="Admin" asp-route-Id="@user.Id">Edit</a></td>
+            <td><a asp-action="DetailUser" asp-controller="Admin" asp-route-Id="@user.Id">Detail</a></td>
+            <td><a asp-action="DeleteUser" asp-controller="Admin" asp-route-Id="@user.Id">Delete</a></td>
+        </tr>
+      } 
+
+</table>

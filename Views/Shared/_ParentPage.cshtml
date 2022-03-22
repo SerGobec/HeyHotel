@@ -15,13 +15,25 @@
                 <li>Help</li>
             </ul>
         </div>
+        <div class="right-part-nav">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div> @User.Identity.Name </div>
+                <div><form method="post" asp-controller="Account" asp-action="Logout">
+                        <input type="submit" value="Выход" />
+                    </form></div>
+            }
+            else
+            {
+                <div><a asp-action="Login" asp-controller="Account">Logint</a></div>
+                <div><a asp-action="Register" asp-controller="Account">Register</a></div>
+            }
+        </div>
     </header>
 
     <div class="conteiner-for-main">
         <main role="main" class="pb-3">
             @RenderBody()
-
-
         </main>
 
     </div>
