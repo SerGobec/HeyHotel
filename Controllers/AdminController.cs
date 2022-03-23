@@ -28,5 +28,15 @@ namespace HeyHotel.Controllers
             var users = _userManager.Users.ToList();
             return View( users );
         }
+
+        public async Task<IActionResult> UserDetail(string? id)
+        {
+            User user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                return View(user);
+            }
+            else return StatusCode(404);
+        }
     }
 }
