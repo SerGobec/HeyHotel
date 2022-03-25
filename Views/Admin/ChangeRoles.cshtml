@@ -1,0 +1,10 @@
+﻿@model HeyHotel.ViewModels.ChangeRolesViewModel;
+
+<form method="post" asp-action="ChangeRoles" asp-controller="Admin">
+    <input type="hidden" name="userId" value="@Model.userId">
+    @foreach(var role in Model.AllRoles)
+            {
+                <input type="checkbox" name="chosenRoles" value="@role.Name"@(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name<br />
+            }
+    <button type="submit">Save</button>
+</form>

@@ -1,4 +1,6 @@
 ﻿using HeyHotel.Models;
+using HeyHotel.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace HeyHotel.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -38,5 +41,46 @@ namespace HeyHotel.Controllers
             }
             else return StatusCode(404);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeRoles(string id)
+        {
+            User user = await _userManager.FindByIdAsync(id);
+            if(user != null)
+            {
+                ChangeRolesViewModel model = new ChangeRolesViewModel();
+                model.userId = user.Id;
+                model.UserName = user.UserName;
+                model.AllRoles = _roleManager.Roles.ToList();
+                model.UserRoles = await _userManager.GetRolesAsync(user);
+                return View(model);
+            }
+            return StatusCode(404);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeRoles(string UserId, List<string> chosenRoles)
+        {
+            User user = await _userManager.FindByIdAsync(UserId);
+            if (user != null)
+            {
+                /* var allRoles = _roleManager.Roles.ToList();
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var addedRoles = chosenRoles.Except(userRoles);
+                var removedRoles = allRoles.Except(chosenRoles);
+                return View(model);*/
+
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var addedRoles = chosenRoles.Except(userRoles);
+                var removedRoles = userRoles.Except(chosenRoles);
+
+                await _userManager.AddToRolesAsync(user, addedRoles);
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+                return RedirectToAction("Index", "Admin");
+            }
+            return StatusCode(404);
+        }
+
     }
 }

@@ -6,6 +6,7 @@
      {
         <tr>
             <td>@user.UserName</td>
+            <td><a asp-action="ChangeRoles" asp-controller="Admin" asp-route-id="@user.Id">Change Roles</a></td>
             <td><a asp-action="EditUser" asp-controller="Admin" asp-route-Id="@user.Id">Edit</a></td>
             <td><a asp-action="UserDetail" asp-controller="Admin" asp-route-Id="@user.Id">Detail</a></td>
             <td><a asp-action="DeleteUser" asp-controller="Admin" asp-route-Id="@user.Id">Delete</a></td>
