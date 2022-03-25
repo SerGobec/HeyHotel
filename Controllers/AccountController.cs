@@ -34,6 +34,7 @@ namespace HeyHotel.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "user");
                     await this._signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index","Home");
                 } else
