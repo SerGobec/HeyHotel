@@ -39,7 +39,7 @@ namespace HeyHotel.Controllers
             {
                 return View(user);
             }
-            else return StatusCode(404);
+            else return NotFound();
         }
 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace HeyHotel.Controllers
                 model.UserRoles = await _userManager.GetRolesAsync(user);
                 return View(model);
             }
-            return StatusCode(404);
+            return NotFound();
         }
 
         [HttpPost]
@@ -79,8 +79,57 @@ namespace HeyHotel.Controllers
 
                 return RedirectToAction("Index", "Admin");
             }
-            return StatusCode(404);
+            return NotFound();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            User user = await _userManager.FindByIdAsync(id);
+            if(user != null)
+            {
+                EditUserViewModel model = new EditUserViewModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Sname = user.SName,
+                    userName = user.UserName,
+                    mail = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Year = user.Year
+                };
+                return View(model);
+            }
+            return NotFound();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            User user = await _userManager.FindByIdAsync(model.Id);
+            if(user != null)
+            {
+                user.Name = model.Name;
+                user.SName = model.Sname;
+                user.UserName = model.userName;
+                user.Email = model.mail;
+                user.PhoneNumber = model.PhoneNumber;
+                user.Year = model.Year;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
+        }  
     }
 }
