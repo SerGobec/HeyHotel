@@ -1,0 +1,13 @@
+﻿@model HeyHotel.ViewModels.DeleteViewModel;
+
+<div> Id: @Model.Id </div>
+<div> Email: @Model.Email </div>
+<div> Name: @Model.Name </div>
+<div> SName: @Model.SName </div>
+<div> UserName: @Model.UserName </div>
+
+
+<form method="post" asp-action="DeleteUserPost" asp-controller="Admin">
+    <input type="hidden" asp-for="Id" value="@Model.Id">
+    <button type="submit">Delete</button>
+</form>

@@ -15,11 +15,13 @@ namespace HeyHotel.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
+            this._signInManager = signInManager;
         }
         public IActionResult Index()
         {
@@ -29,7 +31,7 @@ namespace HeyHotel.Controllers
         public IActionResult Users()
         {
             var users = _userManager.Users.ToList();
-            return View( users );
+            return View(users);
         }
 
         public async Task<IActionResult> UserDetail(string? id)
@@ -46,7 +48,7 @@ namespace HeyHotel.Controllers
         public async Task<IActionResult> ChangeRoles(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
-            if(user != null)
+            if (user != null)
             {
                 ChangeRolesViewModel model = new ChangeRolesViewModel();
                 model.userId = user.Id;
@@ -77,6 +79,7 @@ namespace HeyHotel.Controllers
                 await _userManager.AddToRolesAsync(user, addedRoles);
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
 
+                await _signInManager.RefreshSignInAsync(user);
                 return RedirectToAction("Index", "Admin");
             }
             return NotFound();
@@ -86,7 +89,7 @@ namespace HeyHotel.Controllers
         public async Task<IActionResult> EditUser(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
-            if(user != null)
+            if (user != null)
             {
                 EditUserViewModel model = new EditUserViewModel
                 {
@@ -102,12 +105,12 @@ namespace HeyHotel.Controllers
             }
             return NotFound();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
             User user = await _userManager.FindByIdAsync(model.Id);
-            if(user != null)
+            if (user != null)
             {
                 user.Name = model.Name;
                 user.SName = model.Sname;
@@ -130,6 +133,46 @@ namespace HeyHotel.Controllers
                 }
             }
             return View(model);
-        }  
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            User user = await _userManager.FindByIdAsync(id);
+            if(user != null)
+            {
+                    DeleteViewModel model = new DeleteViewModel()
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        SName = user.SName,
+                        Email = user.Email,
+                        UserName = user.UserName
+                    };
+                    return View(model);
+            }
+            return NotFound();
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserPost(DeleteViewModel model)
+        {
+            User user = await _userManager.FindByIdAsync(model.Id);
+            if(user != null)
+            {
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Users", "Admin");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            return NotFound();
+        }
     }
 }
