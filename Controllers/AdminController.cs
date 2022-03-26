@@ -3,6 +3,7 @@ using HeyHotel.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,14 @@ namespace HeyHotel.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly HotelDbContext _dbContext;
 
-        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
+        public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager, HotelDbContext dbContext)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
             this._signInManager = signInManager;
+            this._dbContext = dbContext;
         }
         public IActionResult Index()
         {
@@ -173,6 +176,58 @@ namespace HeyHotel.Controllers
                 }
             }
             return NotFound();
+        }
+
+        [HttpGet]
+        public IActionResult CreateHotel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateHotel(CreateHotelViewModel model)
+        {
+            Hotel hotel = new Hotel()
+            {
+                Location = model.Location,
+                PhoneNumber = model.PhoneNumber,
+                Mail = model.Mail
+            };
+            _dbContext.Add(hotel);
+            int a = await _dbContext.SaveChangesAsync();
+            return RedirectToAction("index", "admin");
+        }
+
+        [HttpGet]
+        public IActionResult CreateRoom()
+        {
+            CreateRoomViewModel model = new CreateRoomViewModel();
+            foreach(var hotel in _dbContext.Hotels)
+            {
+                model.hotelsLocations.Add(new SelectListItem
+                {
+                    Text = hotel.Location,
+                    Value = hotel.Id + ""
+                });
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRoom(CreateRoomViewModel model)
+        {
+            Room room = new Room()
+            {
+                Floor = model.Floor,
+                HotelId = model.HotelId,
+                IsUsing = false,
+                NumberOfRooms = model.NumberOfRooms,
+                Price = model.Price
+
+            };
+            _dbContext.Add(room);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("index", "admin");
         }
     }
 }

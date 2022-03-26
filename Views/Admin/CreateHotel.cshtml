@@ -1,0 +1,19 @@
+﻿@model HeyHotel.ViewModels.CreateHotelViewModel;
+
+<form method="post" asp-controller="Admin" asp-action="CreateHotel">
+    <div>
+        <label asp-for="Location"></label>
+        <input asp-for="Location" />
+    </div>
+    <div>
+        <label asp-for="Mail"></label>
+        <input asp-for="Mail" />
+    </div>
+    <div>
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" />
+    </div>
+    <button type="submit">Create Hotel</button>
+
+
+</form>

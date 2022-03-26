@@ -1,0 +1,21 @@
+﻿@model HeyHotel.ViewModels.CreateRoomViewModel;
+
+<form method="post" asp-action="CreateRoom" asp-controller="Admin">
+    <div>
+        <label>Choose Location of Hotel:</label>
+        @Html.DropDownListFor(Model => Model.HotelId, Model.hotelsLocations);
+    </div>
+    <div>
+        <label asp-for="NumberOfRooms">Number of room`s section:</label>
+        <input asp-for="NumberOfRooms" />
+    </div>
+    <div>
+        <label asp-for="Price">Price</label>
+        <input asp-for="Price" />
+    </div>
+    <div>
+        <label asp-for="Floor">Floor</label>
+        <input asp-for="Floor" />
+    </div>
+    <button type="submit">Create room</button>
+</form>
