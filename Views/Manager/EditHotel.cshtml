@@ -1,0 +1,22 @@
+﻿@model HeyHotel.ViewModels.EditHotelViewModel
+
+<form method="post" asp-action="EditHotel" asp-controller="Manager">
+    <input type="hidden" asp-for="Id" value="@Model.Id">
+
+    <div>
+        <label asp-for="Location">Location:</label>
+        <input asp-for="Location" value="@Model.Location" type="text" />
+        <span asp-validation-for="Location"></span>
+    </div>
+    <div>
+        <label asp-for="Mail">Email:</label>
+        <input asp-for="Mail" value="@Model.Mail" type="text" />
+        <span asp-validation-for="Mail"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNumber">PhoneNumber:</label>
+        <input asp-for="PhoneNumber" value="@Model.PhoneNumber" type="text" />
+        <span asp-validation-for="PhoneNumber"></span>
+    </div>
+    <button type="submit">Edit</button>
+</form>

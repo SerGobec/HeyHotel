@@ -17,8 +17,8 @@
         <td>@room.Floor</td>
         <td>@room.NumberOfRooms</td>
         <td>@room.Price</td>
-        <td><a asp-action="EditRoom" asp-controller="Manager">Edit</a></td>
-        <td><a asp-action="DeleteRoom" asp-controller="Manager">Delete</a></td>
+        <td><a asp-action="EditRoom" asp-controller="Manager" asp-route-id="@room.Id">Edit</a></td>
+        <td><a asp-action="DeleteRoom" asp-controller="Manager" asp-route-id="@room.Id">Delete</a></td>
     </tr>
     }
 </table>
