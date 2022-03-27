@@ -12,13 +12,14 @@
     </tr>
     @foreach(var room in Model)
     {
-    <tr>
-        <td>@room.RoomNumber</td>
-        <td>@room.Floor</td>
-        <td>@room.NumberOfRooms</td>
-        <td>@room.Price</td>
-        <td><a asp-action="EditRoom" asp-controller="Manager" asp-route-id="@room.Id">Edit</a></td>
-        <td><a asp-action="DeleteRoom" asp-controller="Manager" asp-route-id="@room.Id">Delete</a></td>
-    </tr>
+<tr>
+    <td>@room.RoomNumber</td>
+    <td>@room.Floor</td>
+    <td>@room.NumberOfRooms</td>
+    <td>@room.Price</td>
+    <td><a asp-action="EditRoom" asp-controller="Manager" asp-route-id="@room.Id">Edit</a></td>
+    <td><a asp-action="RoomDetail" asp-controller="Manager" asp-route-id="@room.Id">Detail</a></td>
+    <td><a asp-action="DeleteRoom" asp-controller="Manager" asp-route-id="@room.Id">Delete</a></td>
+</tr>
     }
 </table>
