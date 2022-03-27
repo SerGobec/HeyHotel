@@ -81,7 +81,7 @@ namespace HeyHotel.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpGet]
        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {

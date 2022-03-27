@@ -10,23 +10,21 @@
     <header>
         <div class="left-part-nav">
             <ul>
-                <li id="MailButton"><a asp-action="Index" asp-controller="Home">HeyHotel</a></li>
-                <li><a asp-action="Privacy" asp-controller="Home">About</a></li>
-                <li>Help</li>
+                <li ><a id="MainButton" asp-action="Index" asp-controller="Home">HeyHotel</a></li>
+                <li><a asp-action="About" asp-controller="Home">About</a></li>
+                <li><a asp-action="Help" asp-controller="Home">Help</a></li>
             </ul>
         </div>
         <div class="right-part-nav">
             @if (User.Identity.IsAuthenticated)
             {
-                <div> @User.Identity.Name </div>
-                <div><form method="post" asp-controller="Account" asp-action="Logout">
-                        <input type="submit" value="Выход" />
-                    </form></div>
+                <div style="font-family:system-ui">@User.Identity.Name</div>
+                <a asp-action="Logout" asp-controller="Account" class="HeaderLink"><div class="HeaderLinkDiv">LogOut</div></a>
             }
             else
             {
-                <div><a asp-action="Login" asp-controller="Account">Logint</a></div>
-                <div><a asp-action="Register" asp-controller="Account">Register</a></div>
+                <a asp-action="Login" asp-controller="Account" class="HeaderLink"><div class="HeaderLinkDiv">LogIn</div></a>
+                <a asp-action="Register" asp-controller="Account" class="HeaderLink"><div class="HeaderLinkDiv">Register</div></a>
             }
         </div>
     </header>
@@ -60,5 +58,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script> </script>
 </body>
 </html>

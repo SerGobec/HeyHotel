@@ -180,15 +180,19 @@ namespace HeyHotel.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateHotel(CreateHotelViewModel model)
         {
-            Hotel hotel = new Hotel()
+            if (ModelState.IsValid)
             {
-                Location = model.Location,
-                PhoneNumber = model.PhoneNumber,
-                Mail = model.Mail
-            };
-            _dbContext.Add(hotel);
-            int a = await _dbContext.SaveChangesAsync();
-            return RedirectToAction("index", "admin");
+                Hotel hotel = new Hotel()
+                {
+                    Location = model.Location,
+                    PhoneNumber = model.PhoneNumber,
+                    Mail = model.Mail
+                };
+                _dbContext.Add(hotel);
+                int a = await _dbContext.SaveChangesAsync();
+                return RedirectToAction("index", "admin");
+            }
+            return View(model);
         }
 
         [HttpGet]
@@ -209,18 +213,28 @@ namespace HeyHotel.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRoom(CreateRoomViewModel model)
         {
-            Room room = new Room()
+            if (ModelState.IsValid)
             {
-                Floor = model.Floor,
-                HotelId = model.HotelId,
-                IsUsing = false,
-                NumberOfRooms = model.NumberOfRooms,
-                Price = model.Price,
-                RoomNumber = model.RoomNumber
-            };
-            _dbContext.Add(room);
-            await _dbContext.SaveChangesAsync();
-            return RedirectToAction("index", "admin");
+                Room room = new Room()
+                {
+                    Floor = model.Floor,
+                    HotelId = model.HotelId,
+                    IsUsing = false,
+                    NumberOfRooms = model.NumberOfRooms,
+                    Price = model.Price,
+                    RoomNumber = model.RoomNumber
+                };
+                if(_dbContext.Rooms.Where(el => el.HotelId == room.HotelId 
+                                         && el.RoomNumber == room.RoomNumber)
+                                         .FirstOrDefault() == null)
+                {
+                    _dbContext.Add(room);
+                    await _dbContext.SaveChangesAsync();
+                    return RedirectToAction("index", "admin");
+                }
+                return Content("Room already exist");
+            }
+            return View(model);
         }
     }
 }
