@@ -1,0 +1,24 @@
+﻿@model IEnumerable<HeyHotel.Models.Room>
+
+
+<div>Rooms data for hotel with id: @Model.FirstOrDefault().Hotel.Id</div>
+<div>Hotel Location: @Model.FirstOrDefault().Hotel.Location</div>
+<table border="1"> 
+    <tr>
+        <td>Room Number</td>
+        <td>Floor</td>
+        <td>Number of sections</td>
+        <td>Price</td>
+    </tr>
+    @foreach(var room in Model)
+    {
+    <tr>
+        <td>@room.RoomNumber</td>
+        <td>@room.Floor</td>
+        <td>@room.NumberOfRooms</td>
+        <td>@room.Price</td>
+        <td><a asp-action="EditRoom" asp-controller="Manager">Edit</a></td>
+        <td><a asp-action="DeleteRoom" asp-controller="Manager">Delete</a></td>
+    </tr>
+    }
+</table>

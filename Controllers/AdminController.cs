@@ -69,11 +69,6 @@ namespace HeyHotel.Controllers
             User user = await _userManager.FindByIdAsync(UserId);
             if (user != null)
             {
-                /* var allRoles = _roleManager.Roles.ToList();
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var addedRoles = chosenRoles.Except(userRoles);
-                var removedRoles = allRoles.Except(chosenRoles);
-                return View(model);*/
 
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var addedRoles = chosenRoles.Except(userRoles);
@@ -222,8 +217,8 @@ namespace HeyHotel.Controllers
                 HotelId = model.HotelId,
                 IsUsing = false,
                 NumberOfRooms = model.NumberOfRooms,
-                Price = model.Price
-
+                Price = model.Price,
+                RoomNumber = model.RoomNumber
             };
             _dbContext.Add(room);
             await _dbContext.SaveChangesAsync();

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<HeyHotel.Models.Hotel>
+
+<table>
+    <tr>
+        <td>
+            HotelName
+        </td>
+        <td>
+            Hotel Location
+        </td>
+        <td>
+            Number of Rooms
+        </td>
+    </tr>
+    @foreach (var hotel in Model)
+    {
+<tr>
+    <td>@hotel.Id</td>
+    <td>@hotel.Location</td>
+    <td>@hotel.Rooms.Count</td>
+    <td><a asp-action="EditHotel" asp-controller="Manager" asp-route-id="@hotel.Id">Edit</a></td>
+    <td><a asp-action="RoomsList" asp-controller="Manager" asp-route-id="@hotel.Id">List of Rooms</a></td>
+</tr>
+    }
+
+</table>

@@ -10,6 +10,7 @@ namespace HeyHotel.ViewModels
     {
         public List<SelectListItem> hotelsLocations { get; set; }
         public int HotelId { get; set; }
+        public int RoomNumber { get; set; }
         public decimal Price { get; set; }
         public int NumberOfRooms { get; set; }
         public int Floor { get; set; }

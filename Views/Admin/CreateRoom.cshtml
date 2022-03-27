@@ -6,15 +6,19 @@
         @Html.DropDownListFor(Model => Model.HotelId, Model.hotelsLocations);
     </div>
     <div>
+        <label asp-for="RoomNumber">Number of room:</label>
+        <input asp-for="RoomNumber" />
+    </div>
+    <div>
         <label asp-for="NumberOfRooms">Number of room`s section:</label>
         <input asp-for="NumberOfRooms" />
     </div>
     <div>
-        <label asp-for="Price">Price</label>
+        <label asp-for="Price">Price:</label>
         <input asp-for="Price" />
     </div>
     <div>
-        <label asp-for="Floor">Floor</label>
+        <label asp-for="Floor">Floor:</label>
         <input asp-for="Floor" />
     </div>
     <button type="submit">Create room</button>
