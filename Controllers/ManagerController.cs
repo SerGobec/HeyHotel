@@ -118,5 +118,30 @@ namespace HeyHotel.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult RoomDetail(int? id)
+        {
+            Room room = _dbContext.Rooms.Where(room => room.Id == id).Include(room => room.Hotel).FirstOrDefault();
+            if(room != null)
+            {
+                return View(room);
+            }
+            return NotFound();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> DeleteRoom(int? id)
+        {
+            Room room = _dbContext.Rooms.Where(el => el.Id == id).FirstOrDefault();
+            if(room != null)
+            {
+                _dbContext.Rooms.Remove(room);
+                await _dbContext.SaveChangesAsync();
+                return RoomsList(room.HotelId);
+            }
+            return NotFound();
+        }
     }
 }
