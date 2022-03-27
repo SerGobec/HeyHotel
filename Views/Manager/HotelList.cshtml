@@ -11,6 +11,12 @@
         <td>
             Number of Rooms
         </td>
+        <td>
+            Email
+        </td>
+        <td>
+            Phone Number
+        </td>
     </tr>
     @foreach (var hotel in Model)
     {
@@ -18,6 +24,8 @@
     <td>@hotel.Id</td>
     <td>@hotel.Location</td>
     <td>@hotel.Rooms.Count</td>
+    <td>@hotel.Mail</td>
+    <td>@hotel.PhoneNumber</td>
     <td><a asp-action="EditHotel" asp-controller="Manager" asp-route-id="@hotel.Id">Edit</a></td>
     <td><a asp-action="RoomsList" asp-controller="Manager" asp-route-id="@hotel.Id">List of Rooms</a></td>
 </tr>
