@@ -1,20 +1,24 @@
-﻿* {
+﻿@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+* {
     margin: 0px;
     padding: 0px;
 }
 
+
 body {
-    background-color: whitesmoke;
+    background-image: url("../../photo/css/woodBackground.jpg");
+    background-repeat: repeat;
     padding-left: 40px;
     padding-right: 40px;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 
 header {
     background-color: #EBDCB2;
     width: 100%;
-    height: 50px;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid #662E1C;
@@ -23,6 +27,24 @@ header {
 }
 
 /* left part of header */
+
+#MainButton {
+    outline: none;
+    text-decoration: none;
+    width: 19.5%;
+    margin-right: 0.625%;
+    text-align: center;
+    line-height: 1;
+    color: #662E1C;
+    font-size: 46px;
+    margin-right: 30px;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+}
+
+#MainButton:hover {
+    color: #C9A66C;
+}
 
 .left-part-nav ul{
     margin-top:10px;
@@ -33,10 +55,54 @@ header {
 .left-part-nav ul li {
     list-style-type: none;
     margin-right: 10px;
+    line-height: 3;
+    font-size: 24px;
+    outline: none;
+    text-decoration: none;
+    
 }
 
-/*------------------ MAIN -----------*/
+.left-part-nav ul li a {
+    text-decoration: none;
+    color: #662E1C;
+}
 
+.left-part-nav ul li a:hover {
+    color: #C9A66C;
+}
+
+.right-part-nav {
+    display: flex;
+    margin-top: 10px;
+    margin-right: 40px;
+    align-items: center;
+    /*line-height: 3;*/
+    font-size: 24px;
+    color: #662E1C;
+}
+
+.HeaderLink {
+    outline: none;
+    text-decoration: none;
+}
+
+.HeaderLinkDiv {
+    border: 1px solid #8C7535;
+    margin-left: 20px;
+    height: 35px;
+    text-align: center;
+    padding: 2px 15px;
+    font-family: system-ui;
+    background-color: #EBE5D6;
+    color: black;
+    box-shadow: 6px -3px 2px #96720E;
+    border-radius: 5px;
+}
+
+.HeaderLinkDiv:hover {
+    background-color: #EBEAE6;
+}
+/*------------------ MAIN -----------*/
 .conteiner-for-main {
     width: 100%;
     background-color: #EBDCB2;
