@@ -1,0 +1,40 @@
+﻿@model HeyHotel.ViewModels.EditRoomViewModel
+
+<form method="post" asp-action="EditRoomPost" asp-controller="Manager">
+    
+
+
+    <button type="submit">Ok</button>
+</form>
+
+<form method="post" asp-action="EditRoomPost" asp-controller="Manager">
+
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+    <div>
+        <label asp-for="RoomNumber">RoomNumber:</label>
+        <input asp-for="RoomNumber" value="@Model.RoomNumber" type="text" />
+        <span asp-validation-for="RoomNumber"></span>
+    </div>
+    <div>
+        <label asp-for="NumberOfRooms">NumberOfRooms:</label>
+        <input asp-for="NumberOfRooms" value="@Model.NumberOfRooms" type="text" />
+        <span asp-validation-for="NumberOfRooms"></span>
+    </div>
+    <div>
+        <label asp-for="Price">Price:</label>
+        <input asp-for="Price" value="@Model.Price" type="text" />
+        <span asp-validation-for="Price"></span>
+    </div>
+    <div>
+        <label asp-for="Floor">Floor:</label>
+        <input asp-for="Floor" value="@Model.Floor" type="text" />
+        <span asp-validation-for="Floor"></span>
+    </div>
+    <div>
+        <label asp-for="Description">Description:</label>
+        <input asp-for="Description" value="@Model.Description" type="text" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <button type="submit">Save</button>
+</form>
