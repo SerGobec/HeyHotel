@@ -1,25 +1,30 @@
 ﻿@model IEnumerable<HeyHotel.Models.Room>
 
+<div><a asp-action="HotelList" asp-controller="Manager">Back to Hotel list</a></div>
 
-<div>Rooms data for hotel with id: @Model.FirstOrDefault().Hotel.Id</div>
-<div>Hotel Location: @Model.FirstOrDefault().Hotel.Location</div>
-<table border="1"> 
+@if (@Model.FirstOrDefault() != null)
+{
+    <div>Rooms data for hotel with id: @Model.FirstOrDefault().Hotel.Id</div>
+    <div>Hotel Location: @Model.FirstOrDefault().Hotel.Location</div>
+}
+
+<table border="1">
     <tr>
         <td>Room Number</td>
         <td>Floor</td>
         <td>Number of sections</td>
         <td>Price</td>
     </tr>
-    @foreach(var room in Model)
+    @foreach (var room in Model)
     {
-<tr>
-    <td>@room.RoomNumber</td>
-    <td>@room.Floor</td>
-    <td>@room.NumberOfRooms</td>
-    <td>@room.Price</td>
-    <td><a asp-action="EditRoom" asp-controller="Manager" asp-route-id="@room.Id">Edit</a></td>
-    <td><a asp-action="RoomDetail" asp-controller="Manager" asp-route-id="@room.Id">Detail</a></td>
-    <td><a asp-action="DeleteRoom" asp-controller="Manager" asp-route-id="@room.Id">Delete</a></td>
-</tr>
+        <tr>
+            <td>@room.RoomNumber</td>
+            <td>@room.Floor</td>
+            <td>@room.NumberOfRooms</td>
+            <td>@room.Price</td>
+            <td><a asp-action="EditRoom" asp-controller="Manager" asp-route-id="@room.Id">Edit</a></td>
+            <td><a asp-action="RoomDetail" asp-controller="Manager" asp-route-id="@room.Id">Detail</a></td>
+            <td><a asp-action="DeleteRoom" asp-controller="Manager" asp-route-id="@room.Id">Delete</a></td>
+        </tr>
     }
 </table>

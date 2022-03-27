@@ -76,8 +76,6 @@ namespace HeyHotel.Controllers
 
                 await _userManager.AddToRolesAsync(user, addedRoles);
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
-
-                await _signInManager.RefreshSignInAsync(user);
                 return RedirectToAction("Index", "Admin");
             }
             return NotFound();

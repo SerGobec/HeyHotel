@@ -1,0 +1,15 @@
+﻿@model HeyHotel.Models.Room
+
+<div><a asp-action="RoomsList" asp-controller="Manager" asp-route-id="@Model.HotelId">Back to List</a></div>
+<div>ID: @Model.Id</div>
+<div>RoomNumber: @Model.RoomNumber</div>
+<div>Floor: @Model.Floor</div>
+<div>NumberOfRooms: @Model.NumberOfRooms</div>
+<div>Price for night: @Model.Price $</div>
+<div>Is Using: @Model.IsUsing</div>
+<div>Description: @Model.Description</div>
+<div>
+    <div>Hotel:</div>
+    <div>Hotel ID: @Model.Hotel.Id</div>
+    <div>Location: @Model.Hotel.Location</div>
+</div>
