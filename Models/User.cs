@@ -11,7 +11,6 @@ namespace HeyHotel.Models
         public string Name { get; set; }
         public string SName { get; set; }
         public int Year { get; set; }
-        public string Phone { get; set; }
 
         List<Order> Orders = new List<Order>();
 

@@ -1,0 +1,17 @@
+﻿@model HeyHotel.ViewModels.ConfirmOrderViewModel
+
+<a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@Model.RoomId">Back</a>
+
+<div>Room: @Model.Room.RoomNumber</div>
+<div>Floor: @Model.Room.Floor </div>
+<div>Total Price: @Model.Sum </div>
+<div>Date: @Model.Date</div>
+
+<form method="post" asp-action="ConfirmOrder" asp-controller="Order">
+    <input type="hidden" asp-for="Sum" value="@Model.Sum" />
+    <input type="hidden" asp-for="Date" value="@Model.Date" />
+    <input type="hidden" asp-for="NumOfNight" value="@Model.NumOfNight" />
+    <input type="hidden" asp-for="RoomId" value="@Model.RoomId" />
+    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+    <button type="submit"></button>
+</form>

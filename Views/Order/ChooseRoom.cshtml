@@ -1,0 +1,8 @@
+﻿@model IEnumerable<HeyHotel.Models.Room>
+
+<a asp-action="ChooseHotel" asp-controller="Order"><div>Back to Hotel List</div></a>
+
+@foreach(var room in Model)
+{
+   <a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@room.Id"><div>@room.RoomNumber -> @User.Identity.Name</div></a>
+}
