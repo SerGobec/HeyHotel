@@ -1,0 +1,32 @@
+﻿@model HeyHotel.ViewModels.CreateOrderViewModel
+
+<div> Hotel location: @Model.Room.Hotel.Location </div>
+<div> Hotel Mail: @Model.Room.Hotel.Mail</div>
+
+<div>Room number: @Model.Room.RoomNumber </div>
+
+<form method="get" asp-action="ConfirmOrder" asp-controller="Order">
+    <input type="hidden" asp-for="RoomId" value="@Model.RoomId" />
+    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+    <div>
+        <label asp-for="Date"></label>
+        <input type="date" asp-for="Date" value="@DateTime.Now.ToString("yyyy-mm-dd")"/>
+        <span asp-validation-for="Date"></span>
+    </div>
+    <div>
+        <label asp-for="Time">Time arriving:</label>
+        <input asp-for="Time" type="time" value="@DateTime.Now.TimeOfDay"/>
+        <span asp-validation-for="Time"></span>
+    </div>
+    <div>
+        <label asp-for="NumOfNight">Num of night:</label>
+        <input asp-for="NumOfNight" type="number" />
+        <span asp-validation-for="NumOfNight"></span>
+    </div>
+    <div>
+        <div>Personal discount: @Model.PersonalDiscount %</div>
+        <div>(Also 5% for every next night)</div>
+        <div>Price for night: @Model.Room.Price </div>
+    </div>
+    <button type="submit">Create order</button>
+</form>

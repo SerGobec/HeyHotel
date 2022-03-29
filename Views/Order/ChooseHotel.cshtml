@@ -1,0 +1,6 @@
+﻿@model IEnumerable<HeyHotel.Models.Hotel>
+
+@foreach(var hotel in Model)
+{
+    <a asp-action="ChooseRoom" asp-controller="Order" asp-route-id="@hotel.Id"><div>@hotel.Id</div></a>
+}
