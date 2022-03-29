@@ -15,8 +15,6 @@ namespace HeyHotel.Models
         public decimal Sum { get; set; }
         public bool IsPayed { get; set; }
         public bool IsClosed { get; set; }
-
-        public User User { get; set; }
         public Room Room { get; set; }
     }
 }

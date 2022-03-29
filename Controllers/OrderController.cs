@@ -73,9 +73,33 @@ namespace HeyHotel.Controllers
         }
 
         [HttpPost]
-        public IActionResult ConfirmOrder(ConfirmOrderViewModel model)
+        public async Task<IActionResult> ConfirmOrder(ConfirmOrderViewModel model)
         {
-            return NoContent();
+            if (ModelState.IsValid)
+            {
+                Order order = new Order()
+                {
+                    Sum = model.Sum,
+                    Date = model.Date,
+                    IsClosed = false,
+                    IsPayed = false,
+                    RoomId = model.RoomId,
+                    NumOfNight = model.NumOfNight,
+                    UserId = model.UserId
+                };
+                Room room = _dbContext.Rooms.Where(el => el.Id == model.RoomId).FirstOrDefault();
+                if(room != null && !room.IsUsing)
+                {
+                    room.IsUsing = true;
+
+                    _dbContext.Add(order);
+                    _dbContext.Update(room);
+
+                    await _dbContext.SaveChangesAsync();
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(model);
         }
 
 
@@ -83,7 +107,7 @@ namespace HeyHotel.Controllers
 
         public decimal PersonalDiscount(string userId)
         {
-            int closedOrders = _dbContext.Orders.Include(el => el.User).Where(el => el.User.UserName == userId && el.IsPayed && el.IsClosed).Count();
+            int closedOrders = _dbContext.Orders.Where(el => el.UserId == userId && el.IsPayed && el.IsClosed).Count();
             decimal discount = 1;
             if (closedOrders > 0 && closedOrders < 3) discount = 2;
             if (closedOrders > 3 && closedOrders < 6) discount = 5;
