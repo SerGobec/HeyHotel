@@ -33,7 +33,7 @@ namespace HeyHotel.Controllers
         {
             if(_dbContext.Hotels.Where(el => el.Id == id) != null)
             {
-                List<Room> rooms = _dbContext.Rooms.Where(el => el.HotelId == id).ToList();
+                List<Room> rooms = _dbContext.Rooms.Where(el => el.HotelId == id && !el.IsUsing).ToList();
                 return View(rooms);
             }
             return NotFound();
@@ -98,12 +98,10 @@ namespace HeyHotel.Controllers
                     await _dbContext.SaveChangesAsync();
                     return RedirectToAction("Index", "Home");
                 }
+                return Content("Room alred ordered, or ");
             }
             return View(model);
         }
-
-
-
 
         public decimal PersonalDiscount(string userId)
         {
@@ -127,7 +125,6 @@ namespace HeyHotel.Controllers
             }
             return -1;
         }
-
 
     }
 }

@@ -143,5 +143,12 @@ namespace HeyHotel.Controllers
             }
             return NotFound();
         }
+
+        [HttpGet]
+        public IActionResult OrdersList()
+        {
+            List<Order> orders = _dbContext.Orders.Include(el => el.Room).Include(el => el.Room.Hotel).ToList();
+            return View(orders);
+        }
     }
 }

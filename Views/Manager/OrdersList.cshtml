@@ -1,0 +1,31 @@
+﻿@model IEnumerable<HeyHotel.Models.Order>
+
+<table border="1">
+    <tr>
+      <td>Id</td>  
+      <td>Hotel Location</td>  
+      <td>User ID</td>
+      <td>Room number</td>  
+      <td>Room flor</td>  
+      <td>Total</td>  
+      <td>Is Payed</td>  
+      <td>Is Closed</td>  
+    </tr>
+    @foreach(Order order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Room.Hotel.Location</td>
+                    <td>@order.UserId</td>
+                    <td>@order.Room.RoomNumber</td>
+                    <td>@order.Room.Floor</td>
+                    <td>@order.Sum</td>
+                    <td>@order.IsPayed</td>
+                    <td>@order.IsClosed</td>
+                    <td><a asp-action="EditOrder" asp-controller="Manager">Edit</a></td>
+                    <td><a asp-action="CloseOrder" asp-controller="Manager">Close</a></td>
+                    <td><a asp-action="DeleteOrder" asp-controller="Manager">Delete</a></td>
+                </tr>
+            }
+
+</table>
