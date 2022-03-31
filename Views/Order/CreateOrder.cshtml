@@ -1,5 +1,8 @@
 ﻿@model HeyHotel.ViewModels.CreateOrderViewModel
-
+@{ 
+    string dateStr = DateTime.Now.ToString("yyyy-MM-dd");
+    string timeStr = DateTime.Now.TimeOfDay.ToString(@"hh\:mm");
+}
 <div> Hotel location: @Model.Room.Hotel.Location </div>
 <div> Hotel Mail: @Model.Room.Hotel.Mail</div>
 
@@ -10,12 +13,12 @@
     <input type="hidden" asp-for="UserId" value="@Model.UserId" />
     <div>
         <label asp-for="Date"></label>
-        <input type="date" asp-for="Date" value="@DateTime.Now.ToString("yyyy-mm-dd")"/>
+        <input type="date" asp-for="Date" value="@dateStr" />
         <span asp-validation-for="Date"></span>
     </div>
     <div>
         <label asp-for="Time">Time arriving:</label>
-        <input asp-for="Time" type="time" value="@DateTime.Now.TimeOfDay"/>
+        <input asp-for="Time" type="time" value="@timeStr"/>
         <span asp-validation-for="Time"></span>
     </div>
     <div>
