@@ -103,6 +103,40 @@ namespace HeyHotel.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> CloseOrder(int? OrderId)
+        {
+            Order order = _dbContext.Orders.Where(el => el.Id == OrderId).FirstOrDefault();
+            Room room = _dbContext.Rooms.Where(el => el.Id == order.RoomId).FirstOrDefault();
+            if (order != null && room != null)
+            {
+                order.IsClosed = true;
+                room.IsUsing = false;
+                _dbContext.Update(order);
+                _dbContext.Update(room);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction("OrdersList", "Manager");
+            }
+            return Content("Order or room not found");
+        }
+
+        public async Task<IActionResult> DeleteOrder(int? OrderId)
+        {
+            Order order = _dbContext.Orders.Where(el => el.Id == OrderId).FirstOrDefault();
+            Room room = _dbContext.Rooms.Where(el => el.Id == order.RoomId).FirstOrDefault();
+            if(order != null && room != null)
+            {
+                if(room.IsUsing && !order.IsClosed)
+                {
+                    room.IsUsing = false;
+                    _dbContext.Update(room);
+                }
+                _dbContext.Remove(order);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction("OrdersList", "Manager");
+            }
+            return Content("Order or room not found");
+        }
+
         public decimal PersonalDiscount(string userId)
         {
             int closedOrders = _dbContext.Orders.Where(el => el.UserId == userId && el.IsPayed && el.IsClosed).Count();

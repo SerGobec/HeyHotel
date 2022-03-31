@@ -22,9 +22,16 @@
                     <td>@order.Sum</td>
                     <td>@order.IsPayed</td>
                     <td>@order.IsClosed</td>
-                    <td><a asp-action="EditOrder" asp-controller="Manager">Edit</a></td>
-                    <td><a asp-action="CloseOrder" asp-controller="Manager">Close</a></td>
-                    <td><a asp-action="DeleteOrder" asp-controller="Manager">Delete</a></td>
+                    <td><a asp-action="EditOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Edit</a></td>
+                    @if (order.IsClosed)
+                    {
+                        <td>Close</td>
+                    }
+                    else
+                    {
+                        <td><a asp-action="CloseOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Close</a></td>
+                    }
+                    <td><a asp-action="DeleteOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Delete</a></td>
                 </tr>
             }
 
