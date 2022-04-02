@@ -26,7 +26,7 @@ namespace HeyHotel.Controllers
 
         public IActionResult ChooseHotel()
         {
-            return View(_dbContext.Hotels.ToList());
+            return View(_dbContext.Hotels.Include(el => el.Rooms).ToList());
         }
 
         public IActionResult ChooseRoom(int? id)

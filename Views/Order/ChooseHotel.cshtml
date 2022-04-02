@@ -1,6 +1,18 @@
 ﻿@model IEnumerable<HeyHotel.Models.Hotel>
 
-@foreach(var hotel in Model)
+<div class="flex">
+@foreach (var hotel in Model)
 {
-    <a asp-action="ChooseRoom" asp-controller="Order" asp-route-id="@hotel.Id"><div>@hotel.Id</div></a>
+    <a asp-action="ChooseRoom" asp-controller="Order" asp-route-id="@hotel.Id">
+        <div class="HotelChoseDiv">
+            <div class="HotelLocation">@hotel.Location</div>
+            <div class="HotelImageDiv">
+
+            </div>
+
+            <div class="ChoseHotelFreeRoom">Free room:  @hotel.Rooms.Where(el => !el.IsUsing).ToList().Count </div>
+        </div>
+        
+    </a>
 }
+</div>
