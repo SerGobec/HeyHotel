@@ -26,7 +26,7 @@ namespace HeyHotel.Controllers
 
         public IActionResult ChooseHotel()
         {
-            return View(_dbContext.Hotels.ToList());
+            return View(_dbContext.Hotels.Include(el => el.Rooms).ToList());
         }
 
         public IActionResult ChooseRoom(int? id)
@@ -137,6 +137,43 @@ namespace HeyHotel.Controllers
             return Content("Order or room not found");
         }
 
+        [HttpGet]
+        public IActionResult EditOrder(int? OrderId)
+        {
+            Order order = _dbContext.Orders.Where(el => el.Id == OrderId).FirstOrDefault();
+            if(order != null)
+            {
+                EditOrderViewModel model = new EditOrderViewModel();
+                model.Id = order.Id;
+                model.IsPayed = order.IsPayed;
+                model.NumOfNight = order.NumOfNight;
+                model.Date = order.Date;
+                model.Time = order.Date.TimeOfDay;
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditOrder(EditOrderViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Order order = _dbContext.Orders.Where(el => el.Id == model.Id).FirstOrDefault();
+                if (order != null)
+                {
+                    order.IsPayed = model.IsPayed;
+                    order.NumOfNight = model.NumOfNight;
+                    order.Date = model.Date.Add(model.Time);
+                    _dbContext.Update(order);
+                    await _dbContext.SaveChangesAsync();
+                    return RedirectToAction("OrdersList", "Manager");
+                }
+            }
+            return View(model);
+        }
+
+
         public decimal PersonalDiscount(string userId)
         {
             int closedOrders = _dbContext.Orders.Where(el => el.UserId == userId && el.IsPayed && el.IsClosed).Count();
@@ -155,7 +192,7 @@ namespace HeyHotel.Controllers
             Room room = _dbContext.Rooms.Where(el => el.Id == roomId).FirstOrDefault();
             if(room != null)
             {
-                return (room.Price + room.Price * (numOfDays - 1) * 0.95M) * discount;
+                return (room.Price + room.Price * (numOfDays - 1) * 0.95M) * ( 1 - discount/100);
             }
             return -1;
         }
