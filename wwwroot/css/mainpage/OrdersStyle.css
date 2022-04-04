@@ -28,5 +28,20 @@
 }
 
 .HotelImageDiv {
+    position: absolute;
+    top: 22%;
+    left: 10%;
+    width: 80%;
+    /*background-image: url("../../photo/hotels/1.jpg"); */
+    background-size: 100%;
+    height: 65%;
+    background-position-y: -15px;
+    transition: all 0.4s;
+}
 
+.HotelChoseDiv:hover .HotelImageDiv {
+    left: 2%;
+    top: 15%;
+    width: 96%;
+    height: 77%;
 }
