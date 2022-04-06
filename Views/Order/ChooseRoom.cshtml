@@ -1,8 +1,32 @@
 ﻿@model IEnumerable<HeyHotel.Models.Room>
 
 <a asp-action="ChooseHotel" asp-controller="Order"><div>Back to Hotel List</div></a>
+<div class="flex">
+@{
+    foreach (var room in Model)
+    {
+        string imgWay = room.Hotel.Location.Replace(" ","") + "_" + room.RoomNumber + ".jpg";
+        <a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@room.Id">
+            <div class="RoomChoseDiv">
+                <div class="ChoseHead">
+                    <div class="RoomNumbDiv">
+                        @room.RoomNumber
+                    </div>
+                </div>
 
-@foreach(var room in Model)
-{
-   <a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@room.Id"><div>@room.RoomNumber -> @User.Identity.Name</div></a>
+                <div class="ChoseRoomPhoto" style=" background-image: url(../../photo/rooms/@imgWay); background-repeat: no-repeat; "></div>
+
+                <div class="RoomDescription"> @room.Description </div>
+
+                <div class="RoomParameters">
+                    <div class="RoomParameter">Number of room: @room.NumberOfRooms</div>
+                    <div class="RoomParameter">Floor: @room.Floor</div>
+                    <div class="RoomParameter price">Price per a day: @room.Price$</div>
+                </div>
+                <!-- @room.RoomNumber -> @User.Identity.Name-->
+
+            </div>
+        </a>
+    }
 }
+</div>

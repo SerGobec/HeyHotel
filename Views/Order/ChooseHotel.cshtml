@@ -4,11 +4,11 @@
 @{
     foreach (var hotel in Model)
     {
-        string imgWay = hotel.Id + ".jpg";
+        string imgWay = hotel.Location.Replace(" ","") + ".jpg";
         <a asp-action="ChooseRoom" asp-controller="Order" asp-route-id="@hotel.Id">
             <div class="HotelChoseDiv">
                 <div class="HotelLocation">@hotel.Location</div>
-                <div style=" background-image: url(../../photo/hotels/@imgWay) " class="HotelImageDiv">  
+                <div style=" background-image: url(../../photo/hotels/@imgWay); background-repeat: no-repeat; " class="HotelImageDiv">  
                 </div>
                 <div class="ChoseHotelFreeRoom">Free room:  @hotel.Rooms.Where(el => !el.IsUsing).ToList().Count </div>
             </div>
