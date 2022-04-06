@@ -33,7 +33,7 @@ namespace HeyHotel.Controllers
         {
             if(_dbContext.Hotels.Where(el => el.Id == id) != null)
             {
-                List<Room> rooms = _dbContext.Rooms.Where(el => el.HotelId == id && !el.IsUsing).ToList();
+                List<Room> rooms = _dbContext.Rooms.Where(el => el.HotelId == id && !el.IsUsing).Include(el => el.Hotel).ToList();
                 return View(rooms);
             }
             return NotFound();
