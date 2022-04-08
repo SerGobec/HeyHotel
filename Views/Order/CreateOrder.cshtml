@@ -3,10 +3,35 @@
     string dateStr = DateTime.Now.ToString("yyyy-MM-dd");
     string timeStr = DateTime.Now.TimeOfDay.ToString(@"hh\:mm");
 }
-<div> Hotel location: @Model.Room.Hotel.Location </div>
-<div> Hotel Mail: @Model.Room.Hotel.Mail</div>
 
-<div>Room number: @Model.Room.RoomNumber </div>
+<div class="CreateOrderRNDiv">@Model.Room.RoomNumber</div>
+
+<table class="CreateOrderTable">
+    <tr>
+        <td>Hotel`s location</td>
+        <td>@Model.Room.Hotel.Location</td>
+    </tr>   
+    <tr>
+        <td>Hotel`s email:</td>
+        <td>@Model.Room.Hotel.Mail</td>
+    </tr>
+    <tr>
+        <td>Hotel`s phone number</td>
+        <td>@Model.Room.Hotel.PhoneNumber</td>
+    </tr>
+    <tr>
+        <td>Floor of room</td>
+        <td>@Model.Room.Floor</td>
+    </tr>
+    <tr>
+        <td>Number of rooms</td>
+        <td>@Model.Room.NumberOfRooms</td>
+    </tr>
+    <tr>
+        <td>Price for a night</td>
+        <td>@Model.Room.Price</td>
+    </tr>
+</table>
 
 <form method="get" asp-action="ConfirmOrder" asp-controller="Order">
     <input type="hidden" asp-for="RoomId" value="@Model.RoomId" />
