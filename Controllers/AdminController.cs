@@ -217,6 +217,7 @@ namespace HeyHotel.Controllers
             {
                 Room room = new Room()
                 {
+                    Description = model.Description,
                     Floor = model.Floor,
                     HotelId = model.HotelId,
                     IsUsing = false,

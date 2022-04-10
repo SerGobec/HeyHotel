@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<HeyHotel.Models.Room>
 
-<a asp-action="ChooseHotel" asp-controller="Order"><div>Back to Hotel List</div></a>
+<a asp-action="ChooseHotel" asp-controller="Order"><div class="BackButton">Back to Hotel List</div></a>
 <div class="flex">
 @{
     foreach (var room in Model)

@@ -1,6 +1,6 @@
 ﻿@model HeyHotel.ViewModels.ConfirmOrderViewModel
 
-<a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@Model.RoomId">Back</a>
+<a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@Model.RoomId" ><div class="BackButton">Back</div></a>
 
 <div>Room: @Model.Room.RoomNumber</div>
 <div>Floor: @Model.Room.Floor </div>
