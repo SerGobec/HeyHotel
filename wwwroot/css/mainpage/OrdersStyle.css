@@ -1,4 +1,6 @@
-﻿.flex {
+﻿@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Grape+Nuts&display=swap');
+.flex {
     display: flex;
 }
 
@@ -156,10 +158,11 @@
 }
 
 .CreateOrderTable {
-    width: 80%;
-    position: relative;
-    left: 10%;
-    font-size: 26px;
+    width: 40%;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
     border: 10px solid;
     border-image-slice: 1;
     border-width: 5px;
@@ -183,17 +186,111 @@
 }
 
 .CreateOrderRNDiv {
-    font-size: 24px;
-    font-family: Trebuchet MS;
-    background: linear-gradient(45deg,  )
+    font-size: 50px;
+    font-family: 'Dancing Script', cursive;
     color: #663D00;
     width: 10%;
+    font-weight: 800;
     height: 50%;
-    border: 5px solid #985B00;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 2%;
-    margin-top: 2%;
-    border-radius: 20px;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
+
+.DescrTitle {
+    position: relative;
+    font-size: 30px;
+}
+
+.DescriptionDiv {
+    margin-top: 10px;
+    position: relative;
+    font-size: 16px;
+    width: 30%;
+    min-height: 150px;
+}
+
+.RoomImages {
+    display: flex;
+    width: 95%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.RoomPhoto {
+    background-size: 100%;
+    width: 400px;
+    margin: 1%;
+    height: auto;
+    min-height: 250px;
+    background-repeat: no-repeat;
+    opacity: 1;
+}
+
+.CreateOrdForm {
+    border: 5px solid black;
+    background: #F2F1EF;
+    position: relative;
+    width: 60%;
+    left: 20%;
+    font-size: 30px;
+}
+
+.ChoseOrdPart {
+    width: 100%;
+    height: 100px;
+}
+
+.ChoseOrdPart input {
+    position: relative;
+    margin-left: 20px;
+    top: 10%;
+    font-family: 'Grape Nuts', cursive;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.ChoseOrdPart label {
+    font-family: 'Grape Nuts', cursive;
+    position: relative;
+    left: 10px;
+    top: 5%;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+input[type="number"] {
+    width: 60px;
+}
+
+.PriceInfo {
+    font-family: cursive;
+    font-size: 34px;
+}
+
+.PriceInfo span {
+    font-size: 28px;
+}
+
+.DiscountInfo {
+    font-size: 20px;
+    font-family: Cambria;
+    color: #B6B5B4;
+}
+
+.CreateOrdForm button {
+    position: relative;
+    left: 40%;
+    margin: 20px;
+    width: 20%;
+    height: 40px;
+    border-radius: 30px;
+    background-color: #EADDB3;
+    border: 3px solid #734F06;
+    transition: all .5s;
+}
+
+.CreateOrdForm button:hover {
+    background-color: #D5C48C;
+    cursor: pointer;
+} 

@@ -1,18 +1,46 @@
 ﻿@model HeyHotel.ViewModels.CreateOrderViewModel
-@{ 
+@using System.IO;
+
+@{
     string dateStr = DateTime.Now.ToString("yyyy-MM-dd");
     string timeStr = DateTime.Now.TimeOfDay.ToString(@"hh\:mm");
+    string roomPhotosPath = "";
+    string[] list;
+    try
+    {
+        roomPhotosPath = Environment.CurrentDirectory + "/wwwroot/photo/rooms/" + Model.Room.Hotel.Location.Replace(" ", "") + "_" + Model.Room.RoomNumber;
+        
+        list = Directory.GetFiles(roomPhotosPath, "*.jpg");
+    } catch
+    {
+        list = null;
+    }
+
 }
 
 <div class="CreateOrderRNDiv">@Model.Room.RoomNumber</div>
 
+<div class="DescrTitle">Description:</div>
+<div class="DescriptionDiv">@Model.Room.Description</div>
+
+<div class="RoomImages">
+@if(list != null)
+{
+    foreach(var str in list)
+    {
+        string path = str.Substring(str.LastIndexOf("/") + 1).Replace(@"\",@"/");
+        <div class="RoomPhoto" style=" background-image: url(../../photo/rooms/@path); background-repeat: no-repeat; "></div>
+    }
+
+}
+</div>
 <table class="CreateOrderTable">
     <tr>
         <td>Hotel`s location</td>
         <td>@Model.Room.Hotel.Location</td>
     </tr>   
     <tr>
-        <td>Hotel`s email:</td>
+        <td>Hotel`s email</td>
         <td>@Model.Room.Hotel.Mail</td>
     </tr>
     <tr>
@@ -33,28 +61,27 @@
     </tr>
 </table>
 
-<form method="get" asp-action="ConfirmOrder" asp-controller="Order">
+<form method="get" asp-action="ConfirmOrder" asp-controller="Order" class="CreateOrdForm">
     <input type="hidden" asp-for="RoomId" value="@Model.RoomId" />
     <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-    <div>
-        <label asp-for="Date"></label>
+    <div class="ChoseOrdPart">
+        <label asp-for="Date">Chose date:</label>
         <input type="date" asp-for="Date" value="@dateStr" />
         <span asp-validation-for="Date"></span>
     </div>
-    <div>
-        <label asp-for="Time">Time arriving:</label>
+    <div class="ChoseOrdPart">
+        <label asp-for="Time">Chose time of arrival:</label>
         <input asp-for="Time" type="time" value="@timeStr"/>
         <span asp-validation-for="Time"></span>
     </div>
-    <div>
-        <label asp-for="NumOfNight">Num of night:</label>
+    <div class="ChoseOrdPart">
+        <label asp-for="NumOfNight">Chose num of night:</label>
         <input asp-for="NumOfNight" type="number" />
         <span asp-validation-for="NumOfNight"></span>
     </div>
     <div>
-        <div>Personal discount: @Model.PersonalDiscount %</div>
-        <div>(Also 5% for every next night)</div>
-        <div>Price for night: @Model.Room.Price </div>
+        <div class="PriceInfo">Price for night: <span>@Model.Room.Price</span></div>
+        <div class="DiscountInfo">Personal discount: @Model.PersonalDiscount%. (Also 5% for every next night).</div>
     </div>
     <button type="submit">Create order</button>
 </form>
