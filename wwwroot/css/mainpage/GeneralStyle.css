@@ -1,0 +1,21 @@
+﻿.LinkDiv {
+    padding: 5px 10px;
+    background: linear-gradient(to left top, #EBDEBC, #EBD599);
+    border-end-start-radius: 15px;
+    border: 1px solid #755E1D;
+    color: #755E1D;
+    width: 20%;
+    position: relative;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    left: 1%;
+    font-size: 36px;
+    transition: all 0.3s;
+    margin-bottom: 5px;
+}
+
+.LinkDiv:hover {
+    left: 2%;
+    background: linear-gradient(to left top, #E8D195, #EBC96A);
+    border-start-start-radius: 15px;
+    border-radius: 15px;
+}
