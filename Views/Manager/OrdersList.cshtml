@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<HeyHotel.Models.Order>
 
-<table border="1">
+<table class="ItemListTable">
     <tr>
       <td>Id</td>  
       <td>Hotel Location</td>  
@@ -22,7 +22,7 @@
                     <td>@order.Sum</td>
                     <td>@order.IsPayed</td>
                     <td>@order.IsClosed</td>
-                    <td><a asp-action="EditOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Edit</a></td>
+                    <td class="EditButton"><a  asp-action="EditOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Edit</a></td>
                     @if (order.IsClosed)
                     {
                         <td>Close</td>
