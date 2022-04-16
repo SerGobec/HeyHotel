@@ -2,10 +2,11 @@
 
 <a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@Model.RoomId" ><div class="BackButton">Back</div></a>
 
-<div>Room: @Model.Room.RoomNumber</div>
-<div>Floor: @Model.Room.Floor </div>
-<div>Total Price: @Model.Sum </div>
-<div>Date: @Model.Date</div>
+<div class="ConfirmDataDiv">Please, check if everything is all right</div>
+<div class="ConfirmDataDiv">Room: <span> @Model.Room.RoomNumber </span></div>
+<div class="ConfirmDataDiv">Floor: <span>@Model.Room.Floor</span>  </div>
+<div class="ConfirmDataDiv">Total Price: <span>@Decimal.Round(Model.Sum, 2)$</span></div>
+<div class="ConfirmDataDiv">Date: <span>@Model.Date</span></div>
 
 <form method="post" asp-action="ConfirmOrder" asp-controller="Order">
     <input type="hidden" asp-for="Sum" value="@Model.Sum" />
@@ -13,5 +14,5 @@
     <input type="hidden" asp-for="NumOfNight" value="@Model.NumOfNight" />
     <input type="hidden" asp-for="RoomId" value="@Model.RoomId" />
     <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-    <button type="submit">Confirm</button>
+    <button type="submit" class="ConfirmOrdButton">Confirm order!</button>
 </form>
