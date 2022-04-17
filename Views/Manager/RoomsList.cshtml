@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<HeyHotel.Models.Room>
 
-<div><a asp-action="HotelList" asp-controller="Manager">Back to Hotel list</a></div>
+<div class="BackButton"><a asp-action="HotelList" asp-controller="Manager">Back to Hotel list</a></div>
 
 @if (@Model.FirstOrDefault() != null)
 {
@@ -8,7 +8,7 @@
     <div>Hotel Location: @Model.FirstOrDefault().Hotel.Location</div>
 }
 
-<table border="1">
+<table class="ItemListTable">
     <tr>
         <td>Room Number</td>
         <td>Floor</td>
@@ -22,9 +22,9 @@
             <td>@room.Floor</td>
             <td>@room.NumberOfRooms</td>
             <td>@room.Price</td>
-            <td><a asp-action="EditRoom" asp-controller="Manager" asp-route-id="@room.Id">Edit</a></td>
-            <td><a asp-action="RoomDetail" asp-controller="Manager" asp-route-id="@room.Id">Detail</a></td>
-            <td><a asp-action="DeleteRoom" asp-controller="Manager" asp-route-id="@room.Id">Delete</a></td>
+            <td class="ActionButton"><a asp-action="EditRoom" asp-controller="Manager" asp-route-id="@room.Id">Edit</a></td>
+            <td class="ActionButton"><a asp-action="RoomDetail" asp-controller="Manager" asp-route-id="@room.Id">Detail</a></td>
+            <td class="ActionButton"><a asp-action="DeleteRoom" asp-controller="Manager" asp-route-id="@room.Id">Delete</a></td>
         </tr>
     }
 </table>
