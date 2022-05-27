@@ -3,9 +3,12 @@
 <a asp-action="ChooseHotel" asp-controller="Order"><div class="BackButton">Back to Hotel List</div></a>
 <div class="FiltersDiv">
     <form asp-controller="Order" asp-action="ChooseRoom">
+        <div>
+            Filters:
+        </div>
         <input type="hidden" name="id" value="@Model.ToList()[0].HotelId">
         <div>
-            Floor: <input type="number" min="1" max="@Model.Select(el => el.Floor).Max()" name="Floor" />
+            Floor: <input type="number" min="@Model.Select(el => el.Floor).Min()" max="@Model.Select(el => el.Floor).Max()" name="Floor" />
         </div>
         <div>
             Num of rooms: <input type="number" min="@Model.Select(el => el.NumberOfRooms).Min()" max="@Model.Select(el => el.NumberOfRooms).Max()" name="NumOfRooms" />

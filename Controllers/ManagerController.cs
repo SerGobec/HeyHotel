@@ -13,10 +13,12 @@ namespace HeyHotel.Controllers
     [Authorize(Roles = "manager,admin")]
     public class ManagerController : Controller
     {
-        HotelDbContext _dbContext; 
-        public ManagerController(HotelDbContext dbContext)
+        HotelDbContext _dbContext;
+        UsersDbContext _usersDbContext;
+        public ManagerController(HotelDbContext dbContext, UsersDbContext usersDbContext)
         {
             this._dbContext = dbContext;
+            this._usersDbContext = usersDbContext;
         }
         public IActionResult Index()
         {
@@ -145,10 +147,75 @@ namespace HeyHotel.Controllers
         }
 
         [HttpGet]
-        public IActionResult OrdersList()
+        public IActionResult OrdersList(string sortOrder)
         {
-            List<Order> orders = _dbContext.Orders.Include(el => el.Room).Include(el => el.Room.Hotel).ToList();
-            return View(orders);
+            OrdersListViewModel model = new OrdersListViewModel();
+
+            ViewBag.HotelNameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.HotelLocationSortParm = sortOrder == "Location" ? "Location_desc" : "Location";
+            ViewBag.RoomNumberSortParm = sortOrder == "Rnumb" ? "Rnumb_desc" : "Rnumb";
+            ViewBag.TotalSortParm = sortOrder == "Total" ? "Total_desc" : "Total";
+            ViewBag.IsPayedSortParm = sortOrder == "Payed" ? "Payed_desc" : "Payed";
+            ViewBag.IsClosedSortParm = sortOrder == "Closed" ? "Closed_desc" : "Closed";
+
+            model.Orders = _dbContext.Orders.Include(el => el.Room).Include(el => el.Room.Hotel).ToList();
+            model.UsersInfo = new List<ShortUserInfo>();
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    model.Orders = model.Orders.OrderByDescending(el => el.Room.Hotel.Name).ToList();
+                    break;
+                case "Location":
+                    model.Orders = model.Orders.OrderBy(el => el.Room.Hotel.Location).ToList();
+                    break;
+                case "Location_desc":
+                    model.Orders = model.Orders.OrderByDescending(el => el.Room.Hotel.Location).ToList();
+                    break;
+                case "Rnumb":
+                    model.Orders = model.Orders.OrderBy(el => el.Room.NumberOfRooms).ToList();
+                    break;
+                case "Rnumb_desc":
+                    model.Orders = model.Orders.OrderByDescending(el => el.Room.NumberOfRooms).ToList();
+                    break;
+                case "Total":
+                    model.Orders = model.Orders.OrderBy(el => el.Sum).ToList();
+                    break;
+                case "Total_desc":
+                    model.Orders = model.Orders.OrderByDescending(el => el.Sum).ToList();
+                    break;
+                case "Payed":
+                    model.Orders = model.Orders.OrderBy(el => el.IsPayed).ToList();
+                    break;
+                case "Payed_desc":
+                    model.Orders = model.Orders.OrderByDescending(el => el.IsPayed).ToList();
+                    break;
+                case "Closed":
+                    model.Orders = model.Orders.OrderBy(el => el.IsClosed).ToList();
+                    break;
+                case "Closed_desc":
+                    model.Orders = model.Orders.OrderByDescending(el => el.IsClosed).ToList();
+                    break;
+                default:
+                    model.Orders = model.Orders.OrderBy(el => el.Room.Hotel.Name).ToList();
+                    break;
+            }
+
+            foreach (Order order in model.Orders)
+            {
+                User user = _usersDbContext.Users.Where(el => el.Id == order.UserId).FirstOrDefault();
+                if(user != null)
+                {
+                    model.UsersInfo.Add(new ShortUserInfo()
+                    {
+                        Id = user.Id,
+                        SName = user.SName,
+                        Email = user.Email,
+                        Name = user.Name
+                    });
+                }
+            }
+            return View(model);
         }
     }
 }

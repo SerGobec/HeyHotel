@@ -1,25 +1,27 @@
-﻿@model IEnumerable<HeyHotel.Models.Order>
+﻿@model HeyHotel.ViewModels.OrdersListViewModel
 
 <table class="ItemListTable">
     <tr>
-      <td>Id</td>  
-      <td>Hotel Location</td>  
-      <td>User ID</td>
-      <td>Room number</td>  
-      <td>Room flor</td>  
-      <td>Total</td>  
-      <td>Is Payed</td>  
-      <td>Is Closed</td>  
+        <td>Id</td>
+        <td><a asp-action="OrdersList" asp-controller="Manager" asp-route-sortOrder="@ViewBag.HotelNameSortParm">Hotel Name</a></td> 
+        <td><a asp-action="OrdersList" asp-controller="Manager" asp-route-sortOrder="@ViewBag.HotelLocationSortParm">Hotel Location</a></td>
+        <td>User Email</td>
+        <td><a asp-action="OrdersList" asp-controller="Manager" asp-route-sortOrder="@ViewBag.RoomNumberSortParm">Room number</a></td>
+        <td>Room floor</td>
+        <td><a asp-action="OrdersList" asp-controller="Manager" asp-route-sortOrder="@ViewBag.TotalSortParm">Total</a></td>
+        <td><a asp-action="OrdersList" asp-controller="Manager" asp-route-sortOrder="@ViewBag.IsPayedSortParm">Is Payed</a></td>
+        <td><a asp-action="OrdersList" asp-controller="Manager" asp-route-sortOrder="@ViewBag.IsClosedSortParm">Is Closed</a></td>
     </tr>
-    @foreach(Order order in Model)
+    @foreach(Order order in Model.Orders)
             {
                 <tr>
                     <td>@order.Id</td>
+                    <td>@order.Room.Hotel.Name</td>
                     <td>@order.Room.Hotel.Location</td>
-                    <td>@order.UserId</td>
+                    <td>@Model.FindUserById(order.UserId).Email</td>
                     <td>@order.Room.RoomNumber</td>
                     <td>@order.Room.Floor</td>
-                    <td>@order.Sum</td>
+                    <td>@order.Sum$</td>
                     <td>@order.IsPayed</td>
                     <td>@order.IsClosed</td>
                     <td class="ActionButton"><a  asp-action="EditOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Edit</a></td>
