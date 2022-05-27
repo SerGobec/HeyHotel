@@ -1,5 +1,6 @@
 ﻿using HeyHotel.Models;
 using HeyHotel.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,16 +30,37 @@ namespace HeyHotel.Controllers
             return View(_dbContext.Hotels.Include(el => el.Rooms).ToList());
         }
 
-        public IActionResult ChooseRoom(int? id)
+        public IActionResult ChooseRoom(int? id, int? Floor, int? NumOfRooms, int? MinPrice, int? MaxPrice)
         {
             if(_dbContext.Hotels.Where(el => el.Id == id) != null)
             {
+                if(_dbContext.Rooms.Where(el => el.HotelId == id && !el.IsUsing).Count() == 0)
+                {
+                    return NotFound();
+                }
                 List<Room> rooms = _dbContext.Rooms.Where(el => el.HotelId == id && !el.IsUsing).Include(el => el.Hotel).ToList();
+                if(Floor != null)
+                {
+                    rooms = rooms.Where(el => el.Floor == Floor).ToList();
+                }
+                if(NumOfRooms != null)
+                {
+                    rooms = rooms.Where(el => el.NumberOfRooms == NumOfRooms).ToList();
+                }
+                if(MinPrice != null && MaxPrice != null && MinPrice <= MaxPrice)
+                {
+                    rooms = rooms.Where(el => ((int)el.Price) >= MinPrice && ((int)el.Price) <= MaxPrice).ToList();
+                }
+                if (MinPrice != null && MaxPrice != null && MinPrice <= MaxPrice)
+                {
+                    rooms = rooms.Where(el => ((int)el.Price) >= MinPrice && ((int)el.Price) <= MaxPrice).ToList();
+                }
                 return View(rooms);
             }
             return NotFound();
         }
 
+        [Authorize]
         public async Task<IActionResult> CreateOrder(int? id)
         {
             if (_dbContext.Rooms.Where(el => el.Id == id).FirstOrDefault() != null)

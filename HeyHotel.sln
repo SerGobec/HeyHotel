@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeyHotel", "HeyHotel.csproj", "{82989DA7-83C1-4D7A-A934-F0D5C32BEA3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeyHotel", "HeyHotel.csproj", "{82989DA7-83C1-4D7A-A934-F0D5C32BEA3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeyHotel.TimeChecker", "..\HeuHotel.TimeChecker\HeyHotel.TimeChecker.csproj", "{23756FD7-EC8B-4091-A9C0-EA566F6F1384}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{82989DA7-83C1-4D7A-A934-F0D5C32BEA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82989DA7-83C1-4D7A-A934-F0D5C32BEA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82989DA7-83C1-4D7A-A934-F0D5C32BEA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23756FD7-EC8B-4091-A9C0-EA566F6F1384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23756FD7-EC8B-4091-A9C0-EA566F6F1384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23756FD7-EC8B-4091-A9C0-EA566F6F1384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23756FD7-EC8B-4091-A9C0-EA566F6F1384}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

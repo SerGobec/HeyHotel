@@ -8,8 +8,8 @@
     string[] list;
     try
     {
-        roomPhotosPath = Environment.CurrentDirectory + "/wwwroot/photo/rooms/" + Model.Room.Hotel.Location.Replace(" ", "") + "_" + Model.Room.RoomNumber;
-        
+        roomPhotosPath = Environment.CurrentDirectory + "/wwwroot/photo/rooms/"+ Model.Room.Hotel.City.Replace(" ", "") + "/" + Model.Room.Hotel.Location.Replace(" ", "") + "/" + Model.Room.RoomNumber;
+        roomPhotosPath = roomPhotosPath.Replace("\r", "").Replace("\n","");
         list = Directory.GetFiles(roomPhotosPath, "*.jpg");
     } catch
     {
@@ -24,15 +24,15 @@
 <div class="DescriptionDiv">@Model.Room.Description</div>
 
 <div class="RoomImages">
-@if(list != null)
-{
-    foreach(var str in list)
+    @if (list != null)
     {
-        string path = str.Substring(str.LastIndexOf("/") + 1).Replace(@"\",@"/");
-        <div class="RoomPhoto" style=" background-image: url(../../photo/rooms/@path); background-repeat: no-repeat; "></div>
-    }
+        foreach (var str in list)
+        {
+            string path = str.Substring(str.LastIndexOf("photo/rooms/") + 12).Replace(@"\", @"/");
+            <div class="RoomPhoto" style=" background-image: url(../../photo/rooms/@path); background-repeat: no-repeat; "></div>
+        }
 
-}
+    }
 </div>
 <table class="CreateOrderTable">
     <tr>
@@ -57,7 +57,7 @@
     </tr>
     <tr>
         <td>Price for a night</td>
-        <td>@Model.Room.Price</td>
+        <td>@Model.Room.Price$</td>
     </tr>
 </table>
 
@@ -80,8 +80,13 @@
         <span asp-validation-for="NumOfNight"></span>
     </div>
     <div>
-        <div class="PriceInfo">Price for night: <span>@Model.Room.Price</span></div>
+        <div class="PriceInfo">Price for a night: <span>@Model.Room.Price$</span></div>
         <div class="DiscountInfo">Personal discount: @Model.PersonalDiscount%. (Also 5% for every next night).</div>
     </div>
     <button type="submit">Create order</button>
 </form>
+
+
+<script>
+
+</script>
