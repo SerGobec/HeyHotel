@@ -147,7 +147,7 @@ namespace HeyHotel.Controllers
         }
 
         [HttpGet]
-        public IActionResult OrdersList(string sortOrder)
+        public IActionResult OrdersList(string? sortOrder, string? HotelName ,int? Floor, string? Email, int? MinTotal, int? MaxTotal)
         {
             OrdersListViewModel model = new OrdersListViewModel();
 
@@ -157,9 +157,32 @@ namespace HeyHotel.Controllers
             ViewBag.TotalSortParm = sortOrder == "Total" ? "Total_desc" : "Total";
             ViewBag.IsPayedSortParm = sortOrder == "Payed" ? "Payed_desc" : "Payed";
             ViewBag.IsClosedSortParm = sortOrder == "Closed" ? "Closed_desc" : "Closed";
+            ViewBag.LastValueSortOrder = sortOrder;
+            ViewBag.LVFloor = Floor;
+            ViewBag.LVFEmail = Email;
+            ViewBag.LVMinTotal = MinTotal;
+            ViewBag.LVMaxTotal = MaxTotal;
+            ViewBag.LVHotelName = HotelName;
 
             model.Orders = _dbContext.Orders.Include(el => el.Room).Include(el => el.Room.Hotel).ToList();
             model.UsersInfo = new List<ShortUserInfo>();
+
+            if(Floor != null)
+            {
+                model.Orders = model.Orders.Where(el => el.Room.Floor == Floor).ToList();
+            }
+            if (MinTotal != null)
+            {
+                model.Orders = model.Orders.Where(el => el.Sum >= MinTotal).ToList();
+            }
+            if (MaxTotal != null)
+            {
+                model.Orders = model.Orders.Where(el => el.Sum <= MaxTotal).ToList();
+            }
+            if(HotelName != null)
+            {
+                model.Orders = model.Orders.Where(el => el.Room.Hotel.Name.Contains(HotelName)).ToList();
+            }
 
             switch (sortOrder)
             {
@@ -214,6 +237,16 @@ namespace HeyHotel.Controllers
                         Name = user.Name
                     });
                 }
+            }
+
+            if(Email != null)
+            {
+                model.Orders = model.Orders.Where(el =>
+                {
+                    ShortUserInfo user = model.FindUserById(el.UserId);
+                    if (user != null && user.Email.Contains(Email)) return true;
+                    return false;
+                }).ToList();
             }
             return View(model);
         }

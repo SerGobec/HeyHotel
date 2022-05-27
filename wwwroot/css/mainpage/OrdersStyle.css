@@ -111,7 +111,6 @@ a {
 .FiltersDiv form div:last-of-type {
     margin: 4px;
     padding: 0;
-    width: 70px;
     background: none;
     border: none;
     -webkit-box-shadow: none;
@@ -121,6 +120,9 @@ a {
 
 .FiltersDiv form div:last-of-type input{
     background-color: antiquewhite;
+    min-height: 30px;
+    padding-left:5px;
+    padding-right: 5px;
     font-size: 16px;
     width: 100%;
     height: 100%;

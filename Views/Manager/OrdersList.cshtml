@@ -1,4 +1,51 @@
 ﻿@model HeyHotel.ViewModels.OrdersListViewModel
+@{ 
+    int MinTotal = 0;
+    int MaxTotal = 0;
+    int MinFloor = 0;
+    int MaxFloor = 0;
+    if(Model.Orders.Count > 0)
+    {
+        MinTotal = ((int)Model.Orders.Select(el => el.Sum).Min()) - 1;
+        MaxTotal = ((int)Model.Orders.Select(el => el.Sum).Max()) + 1;
+        MinFloor = ((int)Model.Orders.Select(el => el.Room.Floor).Min()) - 1;
+        MaxFloor = ((int)Model.Orders.Select(el => el.Room.Floor).Max()) + 1;
+    }
+}
+
+
+<div class="FiltersDiv">
+    <form method="get" asp-controller="Manager" asp-action="OrdersList">
+        <div>
+            Filters:
+        </div>
+        <input type="hidden" name="sortOrder" value="@ViewBag.LastValueSortOrder">
+        <div>
+            Hotel name: <input type="text" value="@ViewBag.LVHotelName" name="HotelName" />
+        </div>
+        <div>
+            User Email: <input type="text" value="@ViewBag.LVFEmail" name="Email" />
+        </div>
+        <div>
+            Floor: <input type="number" min="@MinFloor" max="@MaxFloor" value="@ViewBag.LVFloor" name="Floor" />
+        </div>
+        <div>
+            Minimal total: <input type="number" value="@ViewBag.LVMinTotal" min="@MinTotal" max="@MaxTotal" name="MinTotal" />
+        </div>
+        <div>
+            Maximal total: <input type="number" value="@ViewBag.LVMaxTotal" min="@MinTotal" max="@MaxTotal" name="MaxTotal" />
+        </div>
+        <div>
+            <input type="submit" value="Search" />
+        </div>
+    </form>
+    <form method="get" asp-controller="Manager" asp-action="OrdersList">
+        <input type="hidden" name="sortOrder" value="@ViewBag.LastValueSortOrder">
+        <div>
+            <input type="submit" value="Clear Filters" />
+        </div>
+    </form>
+</div>
 
 <table class="ItemListTable">
     <tr>
