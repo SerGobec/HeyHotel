@@ -13,10 +13,12 @@ namespace HeyHotel.Controllers
     [Authorize(Roles = "manager,admin")]
     public class ManagerController : Controller
     {
-        HotelDbContext _dbContext; 
-        public ManagerController(HotelDbContext dbContext)
+        HotelDbContext _dbContext;
+        UsersDbContext _usersDbContext;
+        public ManagerController(HotelDbContext dbContext, UsersDbContext usersDbContext)
         {
             this._dbContext = dbContext;
+            this._usersDbContext = usersDbContext;
         }
         public IActionResult Index()
         {
@@ -147,8 +149,25 @@ namespace HeyHotel.Controllers
         [HttpGet]
         public IActionResult OrdersList()
         {
-            List<Order> orders = _dbContext.Orders.Include(el => el.Room).Include(el => el.Room.Hotel).ToList();
-            return View(orders);
+            OrdersListViewModel model = new OrdersListViewModel();
+
+            model.Orders = _dbContext.Orders.Include(el => el.Room).Include(el => el.Room.Hotel).ToList();
+            model.UsersInfo = new List<ShortUserInfo>();
+            foreach(Order order in model.Orders)
+            {
+                User user = _usersDbContext.Users.Where(el => el.Id == order.UserId).FirstOrDefault();
+                if(user != null)
+                {
+                    model.UsersInfo.Add(new ShortUserInfo()
+                    {
+                        Id = user.Id,
+                        SName = user.SName,
+                        Email = user.Email,
+                        Name = user.Name
+                    });
+                }
+            }
+            return View(model);
         }
     }
 }
