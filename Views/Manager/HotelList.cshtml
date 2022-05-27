@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<HeyHotel.Models.Hotel>
 
-<table>
+<table class="ItemListTable">
     <tr>
         <td>
             HotelName
@@ -26,8 +26,8 @@
     <td>@hotel.Rooms.Count</td>
     <td>@hotel.Mail</td>
     <td>@hotel.PhoneNumber</td>
-    <td><a asp-action="EditHotel" asp-controller="Manager" asp-route-id="@hotel.Id">Edit</a></td>
-    <td><a asp-action="RoomsList" asp-controller="Manager" asp-route-id="@hotel.Id">List of Rooms</a></td>
+    <td class="ActionButton"><a asp-action="EditHotel" asp-controller="Manager" asp-route-id="@hotel.Id">Edit</a></td>
+    <td class="ActionButton"><a asp-action="RoomsList" asp-controller="Manager" asp-route-id="@hotel.Id">List of Rooms</a></td>
 </tr>
     }
 

@@ -1,11 +1,32 @@
 ﻿@model IEnumerable<HeyHotel.Models.Room>
 
 <a asp-action="ChooseHotel" asp-controller="Order"><div class="BackButton">Back to Hotel List</div></a>
+<div class="FiltersDiv">
+    <form asp-controller="Order" asp-action="ChooseRoom">
+        <input type="hidden" name="id" value="@Model.ToList()[0].HotelId">
+        <div>
+            Floor: <input type="number" min="1" max="@Model.Select(el => el.Floor).Max()" name="Floor" />
+        </div>
+        <div>
+            Num of rooms: <input type="number" min="@Model.Select(el => el.NumberOfRooms).Min()" max="@Model.Select(el => el.NumberOfRooms).Max()" name="NumOfRooms" />
+        </div>
+        <div>
+            Minimal price: <input type="number" min="@((int)Model.Select(el => el.Price).Min())" max="@((int)Model.Select(el => el.Price).Max())" name="MinPrice" />
+        </div>
+        <div>
+            Maximal price: <input type="number" min="@((int)Model.Select(el => el.Price).Min())" max="@((int)Model.Select(el => el.Price).Max())" name="MaxPrice" />
+        </div>
+        <div>
+            <input type="submit" value="Search" />
+        </div>
+    </form>
+</div>
 <div class="flex">
 @{
     foreach (var room in Model)
     {
-        string imgWay = room.Hotel.Location.Replace(" ","") + "_" + room.RoomNumber + ".jpg";
+        string imgWay = room.Hotel.City.Replace(" ", "") + "/" + room.Hotel.Location.Replace(" ","") + "/" + room.RoomNumber + "/face.jpg";
+        imgWay = imgWay.Replace("\r", "").Replace("\n","");
         <a asp-action="CreateOrder" asp-controller="Order" asp-route-id="@room.Id">
             <div class="RoomChoseDiv">
                 <div class="ChoseHead">

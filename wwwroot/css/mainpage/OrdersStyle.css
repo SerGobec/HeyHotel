@@ -1,7 +1,9 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Grape+Nuts&display=swap');
+
 .flex {
     display: flex;
+    flex-wrap: wrap;
 }
 
 a {
@@ -13,25 +15,22 @@ a {
     background-color: blanchedalmond;
     margin: 10px;
     width: 250px;
-    height: 350px;
+    height: 450px;
     position: relative;
 }
 
 .HotelLocation {
     position: absolute;
     text-align: center;
+    font-family: 'Berlin Sans FB';
     padding-top: 3%;
     width: 100%;
     height: 12%;
     font-size: 24px;
+    font-size: 5vh;
     background-color: #FFE4BB;
     left: 0px;
     right: 0px;
-}
-
-.ChoseHotelFreeRoom{
-    position: absolute;
-    bottom: 0%;
 }
 
 .HotelImageDiv {
@@ -41,7 +40,7 @@ a {
     width: 80%;
     /*background-image: url("../../photo/hotels/1.jpg"); */
     background-size: 100%;
-    height: 65%;
+    height: 55%;
     background-position-y: -15px;
     transition: all 0.4s;
     background-repeat: no-repeat;
@@ -51,12 +50,41 @@ a {
     left: 2%;
     top: 15%;
     width: 96%;
-    height: 77%;
+    height: 70%;
     background-repeat: no-repeat;
 }
 
-/*  Choose room  */
+.HotelInfoDiv {
+    position: absolute;
+    bottom: 1%;
+    margin-left: 10px;
+}
 
+    .HotelInfoDiv div {
+        background: #FFF7E8;
+        border: 1px solid #F0EAD6;
+        padding-right: 10px;
+        font-family: Arial;
+        margin-bottom: 1px;
+    }
+
+/* Filters */
+
+.FiltersDiv {
+    margin-top: 7px;
+    width: 100%;
+    padding: 5px;
+    height: auto;
+    background-color: #F0EAD6;
+    border: 1px solid black;
+}
+
+.FiltersDiv form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*  Choose room  */
 .RoomChoseDiv {
     box-shadow: 9px -9px 9px -6px rgba(34, 60, 80, 0.24);
     overflow: hidden;
