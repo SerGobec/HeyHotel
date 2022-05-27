@@ -68,7 +68,7 @@ a {
         margin-bottom: 1px;
     }
 
-/* Filters */
+/* Filters for choosing room */
 
 .FiltersDiv {
     margin-top: 7px;
@@ -125,6 +125,7 @@ a {
     width: 100%;
     height: 100%;
 }
+/* Filters for OrdersList */
 
 /*  Choose room  */
 .RoomChoseDiv {
