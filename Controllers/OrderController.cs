@@ -219,5 +219,21 @@ namespace HeyHotel.Controllers
             return -1;
         }
 
+        [HttpGet]
+        public IActionResult CalcRoomPriceGet(int RoomId, string userId, int numOfDays)
+        {
+            //, string userId, int numOfDays
+            //return Content(RoomId.ToString() + "_" + userId + "_" + numOfDays.ToString());
+            decimal discount = PersonalDiscount(userId);
+
+            Room room = _dbContext.Rooms.Where(el => el.Id == RoomId).FirstOrDefault();
+            if (room != null)
+            {
+                decimal result = (room.Price + room.Price * (numOfDays - 1) * 0.95M) * (1 - discount / 100);
+                return Content(result.ToString("0.00"));
+            }
+            return Content("Can`t count...");
+        }
+
     }
 }
