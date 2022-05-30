@@ -23,7 +23,17 @@
         <div class="right-part-nav">
             @if (User.Identity.IsAuthenticated)
             {
-                <div style="font-family:system-ui">@User.Identity.Name</div>
+
+            <div style="font-family:system-ui" id="UserNameDiv">@User.Identity.Name
+            
+
+                <div class="dropdown-content">
+                    <a href="#">Profile</a>
+                    <a asp-controller="Order" asp-action="OrdersOfUser">My Orders</a>
+                </div>
+      
+            </div>
+                
                 <a asp-action="Logout" asp-controller="Account" class="HeaderLink"><div class="HeaderLinkDiv">LogOut</div></a>
             }
             else

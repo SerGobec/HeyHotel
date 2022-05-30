@@ -1,23 +1,33 @@
 ﻿@model IEnumerable<HeyHotel.Models.Room>
 
+@{ 
+    int minPrice = 1;
+    int maxPrice = 1000;
+    if(Model.Count() != 0)
+    {
+        minPrice = ((int)Model.Select(el => el.Price).Min());
+        maxPrice = ((int)Model.Select(el => el.Price).Max());
+    }
+}
+
 <a asp-action="ChooseHotel" asp-controller="Order"><div class="BackButton">Back to Hotel List</div></a>
 <div class="FiltersDiv">
     <form asp-controller="Order" asp-action="ChooseRoom">
         <div>
             Filters:
-        </div>
-        <input type="hidden" name="id" value="@Model.ToList()[0].HotelId">
+        </div>   
+        <input type="hidden" name="id" value="@ViewBag.HotelId">
         <div>
-            Floor: <input type="number" min="@Model.Select(el => el.Floor).Min()" max="@Model.Select(el => el.Floor).Max()" name="Floor" />
-        </div>
-        <div>
-            Num of rooms: <input type="number" min="@Model.Select(el => el.NumberOfRooms).Min()" max="@Model.Select(el => el.NumberOfRooms).Max()" name="NumOfRooms" />
+            Floor: <input type="number" min="1" max="10" name="Floor" />
         </div>
         <div>
-            Minimal price: <input type="number" min="@((int)Model.Select(el => el.Price).Min())" max="@((int)Model.Select(el => el.Price).Max())" name="MinPrice" />
+            Num of rooms: <input type="number" min="1" max="6" name="NumOfRooms" />
         </div>
         <div>
-            Maximal price: <input type="number" min="@((int)Model.Select(el => el.Price).Min())" max="@((int)Model.Select(el => el.Price).Max())" name="MaxPrice" />
+            Minimal price: <input type="number" min="@minPrice" max="@maxPrice" name="MinPrice" />
+        </div>
+        <div>
+            Maximal price: <input type="number" min="@minPrice" max="@maxPrice" name="MaxPrice" />
         </div>
         <div>
             <input type="submit" value="Search" />
