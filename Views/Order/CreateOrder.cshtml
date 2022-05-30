@@ -1,6 +1,7 @@
 ﻿@model HeyHotel.ViewModels.CreateOrderViewModel
 @using System.IO;
 
+
 @{
     string dateStr = DateTime.Now.ToString("yyyy-MM-dd");
     string timeStr = DateTime.Now.TimeOfDay.ToString(@"hh\:mm");
@@ -76,17 +77,27 @@
     </div>
     <div class="ChoseOrdPart">
         <label asp-for="NumOfNight">Chose num of night:</label>
-        <input asp-for="NumOfNight" type="number" />
+        <input asp-for="NumOfNight" min="1" type="number" id="NumOfDayId"/>
         <span asp-validation-for="NumOfNight"></span>
     </div>
     <div>
         <div class="PriceInfo">Price for a night: <span>@Model.Room.Price$</span></div>
         <div class="DiscountInfo">Personal discount: @Model.PersonalDiscount%. (Also 5% for every next night).</div>
+        <div>Total: <span id="totalResult">0</span>$</div>
     </div>
     <button type="submit">Create order</button>
 </form>
 
 
-<script>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ChoseOrdPart').change(function (e) {
+            e.preventDefault();
+            $('#totalResult').val = "Loading...";
+            var numOfDays = $('#NumOfDayId').val();
+            numOfDays = encodeURIComponent(numOfDays);
+            var userId = "@Model.UserId";
+            $('#totalResult').load("https://localhost:44341/Order/CalcRoomPriceGet?RoomId=" + @Model.RoomId + "&userId=" + userId + "&numOfDays=" + numOfDays);
+        });
+    });
 </script>

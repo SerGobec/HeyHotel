@@ -1,0 +1,63 @@
+﻿@model IEnumerable<HeyHotel.Models.Order>
+
+@{
+
+}
+
+@if (Model.Count() != 0)
+{
+    foreach(Order order in Model)
+    {
+        string imgWay = order.Room.Hotel.City.Replace(" ", "") + "/" + order.Room.Hotel.Location.Replace(" ", "") + "/" + order.Room.RoomNumber + "/face.jpg";
+        imgWay = imgWay.Replace("\r", "").Replace("\n", "");
+<div class="OrderInfo">
+    <div class="RoomInfoPhoto" style=" background-image: url(../../photo/rooms/@imgWay); background-repeat: no-repeat; "></div>
+    <div class="OrderStatuses">
+        @if (order.IsClosed)
+        {
+            <div class="status NotActiveStatus">Closed</div>
+        }
+        else
+        {
+            <div class="status ActiveStatus">Active</div>
+        }
+        @if (order.IsPayed)
+        {
+            <div class="status ActiveStatus">Paid</div>
+        }
+        else
+        {
+            <div class="status NotPaidStatus">Not paid</div>
+        }
+    </div>
+    <div class="OrderFacts">
+        <div>Hotel: @order.Room.Hotel.Name</div>
+        <div>Address: @order.Room.Hotel.Location</div>
+        <div>Room: @order.Room.RoomNumber</div>
+        <div>Time: @order.Date </div>
+        <div>Num of night: @order.NumOfNight </div>
+        <div>Price: @order.Sum</div>
+    </div>
+    <div class="OrderActions">
+        @if (!order.IsPayed && !order.IsClosed)
+        {
+            <a asp-controller="Order" asp-action="PayForOrder" asp-route-OrderId="@order.Id">Pay Online</a>
+        }
+        @if(!order.IsClosed && !order.IsPayed) {
+            <a>Cancel the order</a>
+        }
+        @if(order.IsPayed && order.IsClosed) { 
+            <a>Leave feedback</a>
+        }
+        
+        
+    </div>
+</div>
+    }
+}
+else
+{
+    <div>You have no orders yet(</div>
+}
+
+

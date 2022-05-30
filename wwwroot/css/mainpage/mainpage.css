@@ -85,6 +85,47 @@ header {
     color: #662E1C;
 }
 
+#UserNameDiv {
+    border-radius: 5px;
+    border: 1px solid #D5CAAD;
+    padding: 2px 15px;
+    background-color: #EBDFBF;
+    -webkit-box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.6);
+    -moz-box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.6);
+    box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.6);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    margin-top: 3px;
+    background-color: #EBDFBF;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#UserNameDiv:hover .dropdown-content {
+    display: block;
+}
+
+#UserNameDiv:hover {
+    background-color: #EBE5D6;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background-color: #EBDFBF;
+    font-family: system-ui;
+}
+
+.dropdown-content a:hover {
+    background-color: #EBE5D6;
+}
+/*   */
 .HeaderLink {
     outline: none;
     text-decoration: none;

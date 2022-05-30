@@ -32,6 +32,7 @@ namespace HeyHotel.Controllers
 
         public IActionResult ChooseRoom(int? id, int? Floor, int? NumOfRooms, int? MinPrice, int? MaxPrice)
         {
+            ViewBag.HotelId = id;
             if(_dbContext.Hotels.Where(el => el.Id == id) != null)
             {
                 if(_dbContext.Rooms.Where(el => el.HotelId == id && !el.IsUsing).Count() == 0)
@@ -217,6 +218,50 @@ namespace HeyHotel.Controllers
                 return (room.Price + room.Price * (numOfDays - 1) * 0.95M) * ( 1 - discount/100);
             }
             return -1;
+        }
+
+        [HttpGet]
+        public IActionResult CalcRoomPriceGet(int RoomId, string userId, int numOfDays)
+        {
+            //, string userId, int numOfDays
+            //return Content(RoomId.ToString() + "_" + userId + "_" + numOfDays.ToString());
+            decimal discount = PersonalDiscount(userId);
+
+            Room room = _dbContext.Rooms.Where(el => el.Id == RoomId).FirstOrDefault();
+            if (room != null)
+            {
+                decimal result = (room.Price + room.Price * (numOfDays - 1) * 0.95M) * (1 - discount / 100);
+                return Content(result.ToString("0.00"));
+            }
+            return Content("Can`t count...");
+        }
+
+        [Authorize]
+        [HttpGet]
+
+        public async Task<IActionResult> OrdersOfUser()
+        {
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if(user != null)
+            {
+                List<Order> orders = _dbContext.Orders.Where(el => el.UserId == user.Id).Include(el => el.Room).Include(el => el.Room.Hotel).OrderBy(el => el.IsClosed).ToList();
+                return View(orders);
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PayForOrder(int OrderId)
+        {
+            Order order = _dbContext.Orders.Where(el => el.Id == OrderId).FirstOrDefault();
+            if(order != null)
+            {
+                order.IsPayed = true;
+                _dbContext.Update(order);
+                await _dbContext.SaveChangesAsync();
+                return Content("You succesfully paid for order!");
+            }
+            return NotFound();
         }
 
     }
