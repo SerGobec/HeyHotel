@@ -78,6 +78,7 @@ namespace HeyHotel.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult ConfirmOrder(CreateOrderViewModel model)
         {
@@ -244,7 +245,7 @@ namespace HeyHotel.Controllers
             User user = await _userManager.FindByNameAsync(User.Identity.Name);
             if(user != null)
             {
-                List<Order> orders = _dbContext.Orders.Where(el => el.UserId == user.Id).Include(el => el.Room).Include(el => el.Room.Hotel).OrderBy(el => el.IsClosed).ToList();
+                List<Order> orders = _dbContext.Orders.Where(el => el.UserId == user.Id).Include(el => el.Feedback).Include(el => el.Room).Include(el => el.Room.Hotel).OrderBy(el => el.IsClosed).ToList();
                 return View(orders);
             }
             return NotFound();
@@ -264,5 +265,35 @@ namespace HeyHotel.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> LeaveFeedback(int OrderId)
+        {
+            Order order = _dbContext.Orders.Where(el => el.Id == OrderId).FirstOrDefault();
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if(user.UserName != User.Identity.Name)
+            {
+                return StatusCode(405);
+            }
+            if(order != null)
+            {
+                return View(order);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LeaveFeedback(int OrderId, byte Score, string Feedback)
+        {
+            Feedback fb = new Feedback
+            {
+                Score = Score,
+                FeedBack = Feedback,
+                OrderId = OrderId
+            };
+            _dbContext.Add(fb);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("OrdersOfUser");
+        }
     }
 }

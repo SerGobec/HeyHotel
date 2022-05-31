@@ -46,8 +46,8 @@
         @if(!order.IsClosed && !order.IsPayed) {
             <a>Cancel the order</a>
         }
-        @if(order.IsPayed && order.IsClosed) { 
-            <a>Leave feedback</a>
+        @if(order.IsPayed && order.IsClosed && order.Feedback == null) { 
+            <a asp-controller="Order" asp-action="LeaveFeedback" asp-route-OrderId="@order.Id">Leave feedback</a>
         }
         
         
