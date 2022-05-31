@@ -7,6 +7,13 @@
     string timeStr = DateTime.Now.TimeOfDay.ToString(@"hh\:mm");
     string roomPhotosPath = "";
     string[] list;
+    List<FeedbackUserPair> feedbacks = ViewBag.Feedbacks;
+    decimal averageSco = 0;
+    foreach(FeedbackUserPair pair in feedbacks)
+    {
+        averageSco += pair.Feedback.Score;
+    }
+    averageSco = averageSco / (decimal)feedbacks.Count;
     try
     {
         roomPhotosPath = Environment.CurrentDirectory + "/wwwroot/photo/rooms/"+ Model.Room.Hotel.City.Replace(" ", "") + "/" + Model.Room.Hotel.Location.Replace(" ", "") + "/" + Model.Room.RoomNumber;
@@ -87,6 +94,36 @@
     </div>
     <button type="submit">Create order</button>
 </form>
+
+@if(feedbacks.Count != 0)
+{       
+<div id="Feedbacks">
+    <div id="FeedbacksTitle">Feedbacks</div>
+    <div id="AverageScore">Average Score: @averageSco.ToString("0.00")⭐️</div>
+
+    @for (int i = 0; i < feedbacks.Count; i++)
+    {
+        @if (i % 2 == 0)
+        {
+            <div class="Feedback left">
+                <div class="userNameFebc">@feedbacks[i].User.UserName</div>
+                <div class="ScoreFebc">Score: @feedbacks[i].Feedback.Score⭐️</div>
+                <div class="TextFebc">@feedbacks[i].Feedback.FeedBack</div>
+            </div>
+        } else
+        {
+            <div class="Feedback right">
+                <div class="userNameFebc">@feedbacks[i].User.UserName</div>
+                <div class="ScoreFebc">Score: @feedbacks[i].Feedback.Score⭐️</div>
+                <div class="TextFebc">@feedbacks[i].Feedback.FeedBack</div>
+            </div>
+        }
+        
+    }
+
+</div>
+    
+}
 
 
 <script type="text/javascript">

@@ -1,5 +1,7 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Grape+Nuts&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
 
 .flex {
     display: flex;
@@ -510,4 +512,100 @@ input[type="number"] {
     -webkit-box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
     -moz-box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
     box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
+}
+
+
+
+#Feedbacks {
+    font-family: 'Dancing Script', cursive;
+    font-family: 'Grape Nuts', cursive;
+    font-family: 'Libre Caslon Display', serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    left: 5%;
+    background-color: #F0EAD6;
+    height: auto;
+    position: relative;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#FeedbacksTitle {
+    position: absolute;
+    top: 10px;
+    padding: 10px;
+    font-size: 26px;
+    right: 10px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 10px;
+    color: #662E1C;
+}
+
+#AverageScore {
+    border: 1px solid black;
+    font-size: 28px;
+    position: relative;
+    left: 10px;
+    padding: 10px;
+    font-size: 24px;
+    right: 10px;
+    width: fit-content;
+    background-color: #FAF4DF;
+    color: #2F150D;
+    -webkit-box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
+    -moz-box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
+    box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
+}
+
+.left {
+    left: 5%;
+}
+
+.right {
+    right: 5%;
+}
+
+.Feedback {
+    font-size: 20px;
+    width: 35%;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    position: relative;
+    background-color: #F8F7F5;
+    -webkit-box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
+    -moz-box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
+    box-shadow: 0px 0px 13px -2px rgba(34, 60, 80, 0.6);
+}
+
+.userNameFebc{
+    top: 10px;
+    left: 10px;
+}
+
+.ScoreFebc {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+
+.TextFebc {
+    margin-left: 5%;
+    padding-left: 5px;
+    margin-top: 10px;
+    font-size: 22px;
+    font-family: cursive;
+    margin-bottom: 3px;
+    min-height: 80px;
+    max-height: 200px;
+    overflow: scroll;
+    border: 1px solid black;
+    width: 90%;
+    position: relative;
+    font-family: 'Indie Flower', cursive;
 }

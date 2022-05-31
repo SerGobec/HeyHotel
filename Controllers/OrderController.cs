@@ -68,6 +68,22 @@ namespace HeyHotel.Controllers
             {
                 CreateOrderViewModel model = new CreateOrderViewModel();
                 Room room = _dbContext.Rooms.Where(el => el.Id == id).Include(el => el.Hotel).FirstOrDefault();
+                List<Order> orders = _dbContext.Orders.Where(el => el.RoomId == room.Id).ToList();
+                List<FeedbackUserPair> feedbacks = new List<FeedbackUserPair>();
+                foreach(Order order in orders)
+                {
+                    Feedback fb = _dbContext.Feedbacks.Where(el => el.OrderId == order.Id).FirstOrDefault();
+                    User user1 = await _userManager.FindByIdAsync(order.UserId);
+                    if (fb != null && user1 != null)
+                    {
+                        feedbacks.Add(new FeedbackUserPair
+                        {
+                            Feedback = fb,
+                            User = user1
+                        });
+                    }
+                }
+                ViewBag.Feedbacks = feedbacks;
                 User user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
                 model.UserId = user.Id;
                 model.Room = room;
@@ -260,7 +276,7 @@ namespace HeyHotel.Controllers
                 order.IsPayed = true;
                 _dbContext.Update(order);
                 await _dbContext.SaveChangesAsync();
-                return Content("You succesfully paid for order!");
+                return RedirectToAction("OrdersOfUser");
             }
             return NotFound();
         }
