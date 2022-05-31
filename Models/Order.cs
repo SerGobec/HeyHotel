@@ -16,5 +16,6 @@ namespace HeyHotel.Models
         public bool IsPayed { get; set; }
         public bool IsClosed { get; set; }
         public Room Room { get; set; }
+        public Feedback Feedback{ get; set; }
     }
 }

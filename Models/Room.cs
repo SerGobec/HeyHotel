@@ -18,7 +18,7 @@ namespace HeyHotel.Models
 
         public Hotel Hotel { get; set; }
 
-        List<Order> Orders = new List<Order>();
+        public List<Order> Orders = new List<Order>();
 
         public Room()
         {

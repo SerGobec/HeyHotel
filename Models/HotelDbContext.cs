@@ -11,7 +11,7 @@ namespace HeyHotel.Models
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Room> Rooms { get; set; }
-
+        public DbSet<Feedback> Feedbacks { get; set; }
         public HotelDbContext(DbContextOptions<HotelDbContext> options)
             : base(options)
         {

@@ -1,0 +1,11 @@
+﻿@model HeyHotel.Models.Order
+
+@{
+}
+
+<form method="post" asp-action="LeaveFeedback" asp-controller="Order">
+    <input type="hidden" name="OrderId" value="@Model.Id"/>
+    Score: <input type="number" min="1" max="10" value="10" name="Score">
+    Feedback: <input type="text" name="Feedback">
+    <input type="submit"/>
+</form>
