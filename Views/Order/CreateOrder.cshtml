@@ -9,11 +9,15 @@
     string[] list;
     List<FeedbackUserPair> feedbacks = ViewBag.Feedbacks;
     decimal averageSco = 0;
-    foreach(FeedbackUserPair pair in feedbacks)
+    if(feedbacks.Count != 0)
     {
-        averageSco += pair.Feedback.Score;
+        foreach (FeedbackUserPair pair in feedbacks)
+        {
+            averageSco += pair.Feedback.Score;
+        }
+        averageSco = averageSco / (decimal)feedbacks.Count;
     }
-    averageSco = averageSco / (decimal)feedbacks.Count;
+
     try
     {
         roomPhotosPath = Environment.CurrentDirectory + "/wwwroot/photo/rooms/"+ Model.Room.Hotel.City.Replace(" ", "") + "/" + Model.Room.Hotel.Location.Replace(" ", "") + "/" + Model.Room.RoomNumber;

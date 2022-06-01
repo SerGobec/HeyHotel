@@ -78,7 +78,7 @@
                     }
                     else
                     {
-                        <td class="ActionButton"><a asp-action="CloseOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Close</a></td>
+                        <td class="ActionButton"><a asp-action="CloseOrderForManager" asp-controller="Order" asp-route-OrderId="@order.Id">Close</a></td>
                     }
                     <td class="ActionButton"><a asp-action="DeleteOrder" asp-controller="Order" asp-route-OrderId="@order.Id">Delete</a></td>
                 </tr>

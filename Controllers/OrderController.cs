@@ -143,7 +143,8 @@ namespace HeyHotel.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> CloseOrder(int? OrderId)
+        [Authorize(Roles = "manager,admin")]
+        public async Task<IActionResult> CloseOrderForManager(int? OrderId)
         {
             Order order = _dbContext.Orders.Where(el => el.Id == OrderId).FirstOrDefault();
             Room room = _dbContext.Rooms.Where(el => el.Id == order.RoomId).FirstOrDefault();
@@ -155,6 +156,23 @@ namespace HeyHotel.Controllers
                 _dbContext.Update(room);
                 await _dbContext.SaveChangesAsync();
                 return RedirectToAction("OrdersList", "Manager");
+            }
+            return Content("Order or room not found");
+        }
+
+        public async Task<IActionResult> CloseOrderForUser(int? OrderId)
+        {
+            Order order = _dbContext.Orders.Where(el => el.Id == OrderId).FirstOrDefault();
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
+            Room room = _dbContext.Rooms.Where(el => el.Id == order.RoomId).FirstOrDefault();
+            if (order != null && room != null && user != null && user.Id == order.UserId)
+            {
+                order.IsClosed = true;
+                room.IsUsing = false;
+                _dbContext.Update(order);
+                _dbContext.Update(room);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction("OrdersOfUser", "Order");
             }
             return Content("Order or room not found");
         }
@@ -261,7 +279,7 @@ namespace HeyHotel.Controllers
             User user = await _userManager.FindByNameAsync(User.Identity.Name);
             if(user != null)
             {
-                List<Order> orders = _dbContext.Orders.Where(el => el.UserId == user.Id).Include(el => el.Feedback).Include(el => el.Room).Include(el => el.Room.Hotel).OrderBy(el => el.IsClosed).ToList();
+                List<Order> orders = _dbContext.Orders.Where(el => el.UserId == user.Id).Include(el => el.Feedback).Include(el => el.Room).Include(el => el.Room.Hotel).OrderBy(el => el.IsClosed).ThenBy(el => !el.IsPayed).ThenBy(el => el.Date).ToList();
                 return View(orders);
             }
             return NotFound();

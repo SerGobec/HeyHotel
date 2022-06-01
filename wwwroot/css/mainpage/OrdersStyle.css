@@ -565,7 +565,8 @@ input[type="number"] {
 }
 
 .right {
-    right: 5%;
+    left: 55%;
+    
 }
 
 .Feedback {
@@ -603,7 +604,7 @@ input[type="number"] {
     margin-bottom: 3px;
     min-height: 80px;
     max-height: 200px;
-    overflow: scroll;
+    overflow: no-display;
     border: 1px solid black;
     width: 90%;
     position: relative;
